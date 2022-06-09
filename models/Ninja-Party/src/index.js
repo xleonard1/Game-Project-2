@@ -3,8 +3,10 @@ import Phaser from 'phaser';
 
 import PlayScene from './scenes/Play';
 
-
 import PreloadScene from './scenes/Preload';
+
+
+
 
 
 const WIDTH = 1280;
@@ -15,10 +17,13 @@ const SHARED_CONFIG = {
   height: HEIGHT
 }
 
+const Scenes = [PreloadScene, PlayScene];
+
 
 const Scenes = [PlayScene];
 
 const Scenes = [PreloadScene, PlayScene];
+
 
 const createScene = Scene => new Scene(SHARED_CONFIG)
 const initScenes = () => Scenes.map(createScene)
@@ -31,6 +36,16 @@ const config = {
     default: 'arcade',
     arcade: {
 
+      gravity: { y: 300 },
+      debug: false,
+      checkCollision: {
+        up: true,
+        down: true,
+        left: true,
+        right: false
+      },
+
+
       gravity: { y: 200 }
 
       gravity: { y: 300 },
@@ -40,6 +55,12 @@ const config = {
   },
   scene: initScenes()
 };
+
+
+
+
+
+new Phaser.Game(config);
 
 new Phaser.Game(config);
 
@@ -51,4 +72,5 @@ function preload() {
 function create() {
 
 }
+
 

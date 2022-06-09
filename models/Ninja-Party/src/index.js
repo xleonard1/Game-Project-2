@@ -4,6 +4,7 @@ import Phaser from 'phaser';
 import PlayScene from './scenes/Play';
 import PreloadScene from './scenes/Preload';
 
+
 const WIDTH = 1280;
 const HEIGHT = 800;
 
@@ -31,14 +32,16 @@ const config = {
         left: true,
         right: false
       },
+      gravity: { y: 200 }
+      gravity: { y: 300 },
+      debug: false
     }
   },
   scene: initScenes()
 };
 
 
-
-
 new Phaser.Game(config);
+
 
 

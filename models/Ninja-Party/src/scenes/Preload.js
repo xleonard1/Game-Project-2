@@ -12,8 +12,16 @@ class Preload extends Phaser.Scene {
     preload() {
 
 
+
         //Initial load of ninja1
         this.load.image('ninja1', 'assets/Ninjas/ninja 1_idle_0.png')
+
+
+        //Initial load of ninja1
+        this.load.image('ninja1', 'assets/Ninjas/ninja 1_idle_0.png')
+
+        // this.cursors = this.input.keyboard.createCursorKeys()
+
 
         //Load images for ninja1 when idle
         this.load.image('ninja1_idle1', 'assets/Ninjas/ninja 1_idle_0.png');
@@ -53,6 +61,7 @@ class Preload extends Phaser.Scene {
         this.load.image('ninja1_sword5', 'assets/Ninja-Attack/two hands sword 1_attack_4.png');
         this.load.image('ninja1_sword6', 'assets/Ninja-Attack/two hands sword 1_attack_5.png');
 
+
         //Load images for background layers
         this.load.image('layer1', 'assets/Background/Layer_1.png');
         this.load.image('layer2', 'assets/Background/Layer_2.png');
@@ -64,12 +73,18 @@ class Preload extends Phaser.Scene {
         this.load.image('layer8', 'assets/Background/Layer_6.png');
         this.load.image('layer9', 'assets/Background/Layer_7.png');
         this.load.image('layer10', 'assets/Background/Layer_8.png');
+
         this.load.image('layer11', 'assets/Background/Layer_9.png');
 
         //Load Tilemap for ground 
         this.load.tilemapTiledJSON('Ground', 'assets/Tilesets/Ground_Layer.json');
 
 
+
+        // this.load.tilemapTiledJSON('ground', 'assets/Background/Ground_Layer_Collide.json')
+        this.load.image('layer11', 'assets/Background/Layer_9.png');
+
+        this.load.image('ninja1', 'assets/Ninjas/ninja 1_idle_0.png')
 
 
     }

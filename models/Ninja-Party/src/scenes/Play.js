@@ -21,7 +21,7 @@ const createParallax = (scene, count, layer, scrollFactor) => {
 
 class Play extends Phaser.Scene {
 
-    
+
     constructor() {
         super('PlayScene');
 
@@ -31,7 +31,7 @@ class Play extends Phaser.Scene {
     preload() {
         this.cursors = this.input.keyboard.createCursorKeys()
         this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
+    }
 
     create() {
 
@@ -112,10 +112,6 @@ class Play extends Phaser.Scene {
             repeat: 0
         });
 
-
-        ninja1 = this.physics.add.sprite(.5, .5, 'ninja1').setOrigin(0).setScale(4.3)
-
-
         const width = this.scale.width
         const height = this.scale.height
 
@@ -150,38 +146,7 @@ class Play extends Phaser.Scene {
         ninja1.setCollideWorldBounds(true);
 
 
-
         ninja1.body.gravity.y = 700;
-
-
-        ninja1.body.checkCollision = { up: true, down: true, left: false, right: false };
-        ninja1.body.gravity.y = 700;
-
-
-
-        // this.add.image(.5, .5, 'layer1').setOrigin(0).setScrollFactor(0);
-        // this.add.image(.5, .5, 'layer2').setOrigin(0).setScrollFactor(.1);;
-        // this.add.image(.5, .5, 'layer3').setOrigin(0).setScrollFactor(.2);;
-        // this.add.image(.5, .5, 'layer4').setOrigin(0).setScrollFactor(.3);;
-        // this.add.image(.5, .5, 'layer5').setOrigin(0).setScrollFactor(.4);;
-        // this.add.image(.5, .5, 'layer6').setOrigin(0).setScrollFactor(.5);;
-        // this.add.image(.5, .5, 'layer7').setOrigin(0).setScrollFactor(.6);;
-        // this.add.image(.5, .5, 'layer8').setOrigin(0).setScrollFactor(.7);;
-        // this.add.image(.5, .5, 'layer9').setOrigin(0).setScrollFactor(.8);;
-        // this.add.image(.5, .5, 'layer10').setOrigin(0).setScrollFactor(.9);;
-        // this.add.image(.5, .5, 'layer11').setOrigin(0).setScrollFactor(1);;
-
-
-
-
-
-        ninja1.setBounce(0.2);
-        ninja1.setCollideWorldBounds(true);
-
-        ninja1.body.gravity.y = 700;
-
-
-
 
         this.cameras.main.setBounds(0, 0, width * 3, height)
     }
@@ -200,24 +165,6 @@ class Play extends Phaser.Scene {
             //moveLeft
             console.log('left')
             cam.scrollX -= speed
-
-
-        const speed = 4
-
-
-        this.physics.add.collider(ninja1, Ground)
-
-
-        const speed = 3
-
-        const speed = 4
-
-
-        if (this.cursors.left.isDown) {
-            //moveLeft
-            console.log('left')
-
-
             ninja1.setFlipX(true)
             ninja1.setVelocityX(-270)
             console.log(ninja1.velocityX)
@@ -235,18 +182,15 @@ class Play extends Phaser.Scene {
             ninja1.play('ninja1_jump', true)
             console.log('jump')
 
-
         } else if (this.cursors.up.isDown) {
             ninja1.setVelocityY(-330)
             ninja1.setFlipX(false)
             ninja1.play('ninja1_jump', true)
             console.log('jump')
 
-
         } else if (this.cursors.space.isDown) {
             ninja1.play('ninja1_attack')
             console.log('attack')
-
         } else { ninja1.setVelocityX(0) }
 
         // ninja1.play('ninja1_idle')
@@ -261,16 +205,6 @@ class Play extends Phaser.Scene {
 
     }
 }
-
-
-
-        } else if (this.cursors.right.isDown) {
-            cam.scrollX += speed
-            console.log('right')
-        }
-    }
-}
-
 
 
 export default Play;

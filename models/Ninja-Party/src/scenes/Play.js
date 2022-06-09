@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
+
 let platforms = null
 let ninja1 = null
+
 
 const createParallax = (scene, count, layer, scrollFactor) => {
     let x = 0
@@ -16,18 +18,47 @@ const createParallax = (scene, count, layer, scrollFactor) => {
 
 class Play extends Phaser.Scene {
 
+    // public/assets/Layer_0.png
+
 
     constructor() {
         super('PlayScene');
 
     }
 
+    // public/assets/Layer_0.png
+    // public/assets/Layer_1.png
+    preload() {
+        this.cursors = this.input.keyboard.createCursorKeys()
+
+        this.load.image('layer1', 'assets/Layer_1.png');
+        this.load.image('layer2', 'assets/Layer_2.png');
+        this.load.image('layer3', 'assets/Layer_3.png');
+        this.load.image('layer4', 'assets/Layer_4.png');
+        this.load.image('layer5', 'assets/Layer_4Lights.png');
+        this.load.image('layer6', 'assets/Layer_04Lights.png');
+        this.load.image('layer7', 'assets/Layer_5.png');
+        this.load.image('layer8', 'assets/Layer_6.png');
+        this.load.image('layer9', 'assets/Layer_7.png');
+        this.load.image('layer10', 'assets/Layer_8.png');
+        this.load.image('layer11', 'assets/Layer_9.png');
+
+        this.load.audio('theme', 'assets/Chippy Music 12.wav');
+
     // Having this function imported from the Preload.js was returning an error of 'left is undefined'
     preload() {
         this.cursors = this.input.keyboard.createCursorKeys()
+
     }
 
     create() {
+
+
+        // playMusic = () => {
+        //     this.sound.add('theme', { loop: true, volume: 100 })
+        // }
+
+        // this.playMusic()
 
 
         //Here const map is calling key: 'map' whereas the const tilset1 is calling the actual associated .png file
@@ -50,6 +81,7 @@ class Play extends Phaser.Scene {
 
         ninja1 = this.physics.add.sprite(.5, .5, 'ninja1').setOrigin(0).setScale(4.3)
 
+
         const width = this.scale.width
         const height = this.scale.height
 
@@ -66,6 +98,19 @@ class Play extends Phaser.Scene {
         createParallax(this, 10, 'layer11', 1)
 
 
+        // this.add.image(.5, .5, 'layer1').setOrigin(0).setScrollFactor(0);
+        // this.add.image(.5, .5, 'layer2').setOrigin(0).setScrollFactor(.1);;
+        // this.add.image(.5, .5, 'layer3').setOrigin(0).setScrollFactor(.2);;
+        // this.add.image(.5, .5, 'layer4').setOrigin(0).setScrollFactor(.3);;
+        // this.add.image(.5, .5, 'layer5').setOrigin(0).setScrollFactor(.4);;
+        // this.add.image(.5, .5, 'layer6').setOrigin(0).setScrollFactor(.5);;
+        // this.add.image(.5, .5, 'layer7').setOrigin(0).setScrollFactor(.6);;
+        // this.add.image(.5, .5, 'layer8').setOrigin(0).setScrollFactor(.7);;
+        // this.add.image(.5, .5, 'layer9').setOrigin(0).setScrollFactor(.8);;
+        // this.add.image(.5, .5, 'layer10').setOrigin(0).setScrollFactor(.9);;
+        // this.add.image(.5, .5, 'layer11').setOrigin(0).setScrollFactor(1);;
+
+
 
 
 
@@ -74,6 +119,7 @@ class Play extends Phaser.Scene {
 
         ninja1.body.gravity.y = 700;
 
+
         this.cameras.main.setBounds(0, 0, width * 3, height)
     }
 
@@ -81,7 +127,11 @@ class Play extends Phaser.Scene {
 
     update() {
         const cam = this.cameras.main
+
+        const speed = 3
+
         const speed = 4
+
         if (this.cursors.left.isDown) {
             //moveLeft
             console.log('left')
@@ -92,6 +142,5 @@ class Play extends Phaser.Scene {
         }
     }
 }
-
 
 export default Play;

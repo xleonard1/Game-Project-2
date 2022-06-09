@@ -5,9 +5,6 @@ let Ground = 'layer11'
 
 
 
-
-
-
 const createParallax = (scene, count, layer, scrollFactor) => {
     let x = 0
     for (let i = 0; i < count; i++) {
@@ -22,16 +19,9 @@ const createParallax = (scene, count, layer, scrollFactor) => {
 
 
 
-
 class Play extends Phaser.Scene {
 
-
-class Play extends Phaser.Scene {
-
-    // public/assets/Layer_0.png
-
-
-
+    
     constructor() {
         super('PlayScene');
 
@@ -40,50 +30,16 @@ class Play extends Phaser.Scene {
     // Having this function imported from the Preload.js was returning an error of 'left is undefined'
     preload() {
         this.cursors = this.input.keyboard.createCursorKeys()
+        this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-    // public/assets/Layer_0.png
-    // public/assets/Layer_1.png
-    preload() {
-        this.cursors = this.input.keyboard.createCursorKeys()
-
-        this.load.image('layer1', 'assets/Layer_1.png');
-        this.load.image('layer2', 'assets/Layer_2.png');
-        this.load.image('layer3', 'assets/Layer_3.png');
-        this.load.image('layer4', 'assets/Layer_4.png');
-        this.load.image('layer5', 'assets/Layer_4Lights.png');
-        this.load.image('layer6', 'assets/Layer_04Lights.png');
-        this.load.image('layer7', 'assets/Layer_5.png');
-        this.load.image('layer8', 'assets/Layer_6.png');
-        this.load.image('layer9', 'assets/Layer_7.png');
-        this.load.image('layer10', 'assets/Layer_8.png');
-        this.load.image('layer11', 'assets/Layer_9.png');
-
-        this.load.audio('theme', 'assets/Chippy Music 12.wav');
-
-    // Having this function imported from the Preload.js was returning an error of 'left is undefined'
-    preload() {
-        this.cursors = this.input.keyboard.createCursorKeys()
-
-
-    }
 
     create() {
-
-
-
-        // playMusic = () => {
-        //     this.sound.add('theme', { loop: true, volume: 100 })
-        // }
-
-        // this.playMusic()
-
 
         //Here const map is calling key: 'map' whereas the const tilset1 is calling the actual associated .png file
         // const map = this.make.tilemap({ key: 'ground' });
         // const tileset1 = map.addTilesetImage('Layer', 'ground');
 
         //Animate ninja1 while idle 
-
         this.anims.create({
             key: 'ninja1_idle',
             frames: [
@@ -126,21 +82,38 @@ class Play extends Phaser.Scene {
             repeat: -1
         });
 
-        // this.anims.create({
-        //     key: 'ninja1_idle',
-        //     frames: [
-        //         { key: 'ninja1_idle1', frame: null },
-        //         { key: 'ninja1_idle2', frame: null },
-        //         { key: 'ninja1_idle3', frame: null },
-        //         { key: 'ninja1_idle4', frame: null },
-        //         { key: 'ninja1_idle5', frame: null, duration: 100 }
-        //     ],
-        //     frameRate: 5,
-        //     repeat: -1
-        // });
+        //Animate ninja while attacking 
+        this.anims.create({
+            key: 'ninja1_attack',
+            frames: [
+                { key: 'ninja1_attack1', frame: null },
+                { key: 'ninja1_attack2', frame: null },
+                { key: 'ninja1_attack3', frame: null },
+                { key: 'ninja1_attack4', frame: null },
+                { key: 'ninja1_attack5', frame: null },
+                { key: 'ninja1_attack6', frame: null }
+            ],
+            frameRate: 8,
+            repeat: 0
+        });
+
+        //Sword animation during attack
+        this.anims.create({
+            key: 'ninja1_sword',
+            frames: [
+                { key: 'ninja1_sword1', frame: null },
+                { key: 'ninja1_sword2', frame: null },
+                { key: 'ninja1_sword3', frame: null },
+                { key: 'ninja1_sword4', frame: null },
+                { key: 'ninja1_sword5', frame: null },
+                { key: 'ninja1_sword6', frame: null }
+            ],
+            frameRate: 8,
+            repeat: 0
+        });
+
 
         ninja1 = this.physics.add.sprite(.5, .5, 'ninja1').setOrigin(0).setScale(4.3)
-
 
 
         const width = this.scale.width
@@ -176,6 +149,11 @@ class Play extends Phaser.Scene {
 
         ninja1.setCollideWorldBounds(true);
 
+
+
+        ninja1.body.gravity.y = 700;
+
+
         ninja1.body.checkCollision = { up: true, down: true, left: false, right: false };
         ninja1.body.gravity.y = 700;
 
@@ -204,6 +182,7 @@ class Play extends Phaser.Scene {
 
 
 
+
         this.cameras.main.setBounds(0, 0, width * 3, height)
     }
 
@@ -211,6 +190,17 @@ class Play extends Phaser.Scene {
 
     update() {
         const cam = this.cameras.main
+        const speed = 4
+
+
+
+
+        //Conditionals for player action/anmimation
+        if (this.cursors.left.isDown) {
+            //moveLeft
+            console.log('left')
+            cam.scrollX -= speed
+
 
         const speed = 4
 
@@ -226,6 +216,7 @@ class Play extends Phaser.Scene {
         if (this.cursors.left.isDown) {
             //moveLeft
             console.log('left')
+
 
             ninja1.setFlipX(true)
             ninja1.setVelocityX(-270)
@@ -243,11 +234,19 @@ class Play extends Phaser.Scene {
             ninja1.setFlipX(true)
             ninja1.play('ninja1_jump', true)
             console.log('jump')
+
+
         } else if (this.cursors.up.isDown) {
             ninja1.setVelocityY(-330)
             ninja1.setFlipX(false)
             ninja1.play('ninja1_jump', true)
             console.log('jump')
+
+
+        } else if (this.cursors.space.isDown) {
+            ninja1.play('ninja1_attack')
+            console.log('attack')
+
         } else { ninja1.setVelocityX(0) }
 
         // ninja1.play('ninja1_idle')
@@ -271,6 +270,7 @@ class Play extends Phaser.Scene {
         }
     }
 }
+
 
 
 export default Play;

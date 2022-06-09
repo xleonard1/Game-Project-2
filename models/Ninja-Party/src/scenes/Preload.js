@@ -16,6 +16,10 @@ class Preload extends Phaser.Scene {
         //Initial load of ninja1
         this.load.image('ninja1', 'assets/Ninjas/ninja 1_idle_0.png')
 
+
+        //Initial load of ninja1
+        this.load.image('ninja1', 'assets/Ninjas/ninja 1_idle_0.png')
+
         // this.cursors = this.input.keyboard.createCursorKeys()
 
 
@@ -25,7 +29,6 @@ class Preload extends Phaser.Scene {
         this.load.image('ninja1_idle3', 'assets/Ninjas/ninja 1_idle_2.png');
         this.load.image('ninja1_idle4', 'assets/Ninjas/ninja 1_idle_3.png');
         this.load.image('ninja1_idle5', 'assets/Ninjas/ninja 1_idle_4.png');
-
 
         //Load images for ninja1 when running 
         this.load.image('ninja1_run1', 'assets/Ninjas/ninja 1_run_0.png');
@@ -50,10 +53,16 @@ class Preload extends Phaser.Scene {
         this.load.image('ninja1_attack5', 'assets/Ninjas/ninja 1_attack_4.png');
         this.load.image('ninja1_attack6', 'assets/Ninjas/ninja 1_attack_5.png');
 
+        //Load sword animation
+        this.load.image('ninja1_sword1', 'assets/Ninja-Attack/two hands sword 1_attack_0.png');
+        this.load.image('ninja1_sword2', 'assets/Ninja-Attack/two hands sword 1_attack_1.png');
+        this.load.image('ninja1_sword3', 'assets/Ninja-Attack/two hands sword 1_attack_2.png');
+        this.load.image('ninja1_sword4', 'assets/Ninja-Attack/two hands sword 1_attack_3.png');
+        this.load.image('ninja1_sword5', 'assets/Ninja-Attack/two hands sword 1_attack_4.png');
+        this.load.image('ninja1_sword6', 'assets/Ninja-Attack/two hands sword 1_attack_5.png');
+
+
         //Load images for background layers
-
-
-
         this.load.image('layer1', 'assets/Background/Layer_1.png');
         this.load.image('layer2', 'assets/Background/Layer_2.png');
         this.load.image('layer3', 'assets/Background/Layer_3.png');
@@ -69,7 +78,6 @@ class Preload extends Phaser.Scene {
 
         //Load Tilemap for ground 
         this.load.tilemapTiledJSON('Ground', 'assets/Tilesets/Ground_Layer.json');
-
 
 
 

@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 
+let platforms = null
+let ninja1 = null
 
 
 const createParallax = (scene, count, layer, scrollFactor) => {
@@ -15,7 +17,9 @@ const createParallax = (scene, count, layer, scrollFactor) => {
 }
 
 class Play extends Phaser.Scene {
+
     // public/assets/Layer_0.png
+
 
     constructor() {
         super('PlayScene');
@@ -40,15 +44,43 @@ class Play extends Phaser.Scene {
         this.load.image('layer11', 'assets/Layer_9.png');
 
         this.load.audio('theme', 'assets/Chippy Music 12.wav');
+
+    // Having this function imported from the Preload.js was returning an error of 'left is undefined'
+    preload() {
+        this.cursors = this.input.keyboard.createCursorKeys()
+
     }
 
     create() {
+
 
         // playMusic = () => {
         //     this.sound.add('theme', { loop: true, volume: 100 })
         // }
 
         // this.playMusic()
+
+
+        //Here const map is calling key: 'map' whereas the const tilset1 is calling the actual associated .png file
+        // const map = this.make.tilemap({ key: 'ground' });
+        // const tileset1 = map.addTilesetImage('Layer', 'ground');
+
+        //Animate ninja1 while idle 
+        // this.anims.create({
+        //     key: 'ninja1_idle',
+        //     frames: [
+        //         { key: 'ninja1_idle1', frame: null },
+        //         { key: 'ninja1_idle2', frame: null },
+        //         { key: 'ninja1_idle3', frame: null },
+        //         { key: 'ninja1_idle4', frame: null },
+        //         { key: 'ninja1_idle5', frame: null, duration: 100 }
+        //     ],
+        //     frameRate: 5,
+        //     repeat: -1
+        // });
+
+        ninja1 = this.physics.add.sprite(.5, .5, 'ninja1').setOrigin(0).setScale(4.3)
+
 
         const width = this.scale.width
         const height = this.scale.height
@@ -65,6 +97,7 @@ class Play extends Phaser.Scene {
         createParallax(this, 10, 'layer10', .9)
         createParallax(this, 10, 'layer11', 1)
 
+
         // this.add.image(.5, .5, 'layer1').setOrigin(0).setScrollFactor(0);
         // this.add.image(.5, .5, 'layer2').setOrigin(0).setScrollFactor(.1);;
         // this.add.image(.5, .5, 'layer3').setOrigin(0).setScrollFactor(.2);;
@@ -77,6 +110,16 @@ class Play extends Phaser.Scene {
         // this.add.image(.5, .5, 'layer10').setOrigin(0).setScrollFactor(.9);;
         // this.add.image(.5, .5, 'layer11').setOrigin(0).setScrollFactor(1);;
 
+
+
+
+
+        ninja1.setBounce(0.2);
+        ninja1.setCollideWorldBounds(true);
+
+        ninja1.body.gravity.y = 700;
+
+
         this.cameras.main.setBounds(0, 0, width * 3, height)
     }
 
@@ -84,7 +127,11 @@ class Play extends Phaser.Scene {
 
     update() {
         const cam = this.cameras.main
+
         const speed = 3
+
+        const speed = 4
+
         if (this.cursors.left.isDown) {
             //moveLeft
             console.log('left')
@@ -95,4 +142,5 @@ class Play extends Phaser.Scene {
         }
     }
 }
+
 export default Play;

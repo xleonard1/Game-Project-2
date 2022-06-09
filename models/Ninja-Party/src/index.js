@@ -32,7 +32,6 @@ const config = {
         left: true,
         right: false
       },
-      gravity: { y: 200 }
       gravity: { y: 300 },
       debug: false
     }

@@ -5,6 +5,9 @@ let Ground = 'layer11'
 
 
 
+
+
+
 const createParallax = (scene, count, layer, scrollFactor) => {
     let x = 0
     for (let i = 0; i < count; i++) {
@@ -19,7 +22,14 @@ const createParallax = (scene, count, layer, scrollFactor) => {
 
 
 
+
 class Play extends Phaser.Scene {
+
+
+class Play extends Phaser.Scene {
+
+    // public/assets/Layer_0.png
+
 
 
     constructor() {
@@ -30,15 +40,50 @@ class Play extends Phaser.Scene {
     // Having this function imported from the Preload.js was returning an error of 'left is undefined'
     preload() {
         this.cursors = this.input.keyboard.createCursorKeys()
+
+    // public/assets/Layer_0.png
+    // public/assets/Layer_1.png
+    preload() {
+        this.cursors = this.input.keyboard.createCursorKeys()
+
+        this.load.image('layer1', 'assets/Layer_1.png');
+        this.load.image('layer2', 'assets/Layer_2.png');
+        this.load.image('layer3', 'assets/Layer_3.png');
+        this.load.image('layer4', 'assets/Layer_4.png');
+        this.load.image('layer5', 'assets/Layer_4Lights.png');
+        this.load.image('layer6', 'assets/Layer_04Lights.png');
+        this.load.image('layer7', 'assets/Layer_5.png');
+        this.load.image('layer8', 'assets/Layer_6.png');
+        this.load.image('layer9', 'assets/Layer_7.png');
+        this.load.image('layer10', 'assets/Layer_8.png');
+        this.load.image('layer11', 'assets/Layer_9.png');
+
+        this.load.audio('theme', 'assets/Chippy Music 12.wav');
+
+    // Having this function imported from the Preload.js was returning an error of 'left is undefined'
+    preload() {
+        this.cursors = this.input.keyboard.createCursorKeys()
+
+
     }
 
     create() {
+
+
+
+        // playMusic = () => {
+        //     this.sound.add('theme', { loop: true, volume: 100 })
+        // }
+
+        // this.playMusic()
+
 
         //Here const map is calling key: 'map' whereas the const tilset1 is calling the actual associated .png file
         // const map = this.make.tilemap({ key: 'ground' });
         // const tileset1 = map.addTilesetImage('Layer', 'ground');
 
         //Animate ninja1 while idle 
+
         this.anims.create({
             key: 'ninja1_idle',
             frames: [
@@ -81,6 +126,22 @@ class Play extends Phaser.Scene {
             repeat: -1
         });
 
+        // this.anims.create({
+        //     key: 'ninja1_idle',
+        //     frames: [
+        //         { key: 'ninja1_idle1', frame: null },
+        //         { key: 'ninja1_idle2', frame: null },
+        //         { key: 'ninja1_idle3', frame: null },
+        //         { key: 'ninja1_idle4', frame: null },
+        //         { key: 'ninja1_idle5', frame: null, duration: 100 }
+        //     ],
+        //     frameRate: 5,
+        //     repeat: -1
+        // });
+
+        ninja1 = this.physics.add.sprite(.5, .5, 'ninja1').setOrigin(0).setScale(4.3)
+
+
 
         const width = this.scale.width
         const height = this.scale.height
@@ -118,6 +179,31 @@ class Play extends Phaser.Scene {
         ninja1.body.checkCollision = { up: true, down: true, left: false, right: false };
         ninja1.body.gravity.y = 700;
 
+
+
+        // this.add.image(.5, .5, 'layer1').setOrigin(0).setScrollFactor(0);
+        // this.add.image(.5, .5, 'layer2').setOrigin(0).setScrollFactor(.1);;
+        // this.add.image(.5, .5, 'layer3').setOrigin(0).setScrollFactor(.2);;
+        // this.add.image(.5, .5, 'layer4').setOrigin(0).setScrollFactor(.3);;
+        // this.add.image(.5, .5, 'layer5').setOrigin(0).setScrollFactor(.4);;
+        // this.add.image(.5, .5, 'layer6').setOrigin(0).setScrollFactor(.5);;
+        // this.add.image(.5, .5, 'layer7').setOrigin(0).setScrollFactor(.6);;
+        // this.add.image(.5, .5, 'layer8').setOrigin(0).setScrollFactor(.7);;
+        // this.add.image(.5, .5, 'layer9').setOrigin(0).setScrollFactor(.8);;
+        // this.add.image(.5, .5, 'layer10').setOrigin(0).setScrollFactor(.9);;
+        // this.add.image(.5, .5, 'layer11').setOrigin(0).setScrollFactor(1);;
+
+
+
+
+
+        ninja1.setBounce(0.2);
+        ninja1.setCollideWorldBounds(true);
+
+        ninja1.body.gravity.y = 700;
+
+
+
         this.cameras.main.setBounds(0, 0, width * 3, height)
     }
 
@@ -125,15 +211,22 @@ class Play extends Phaser.Scene {
 
     update() {
         const cam = this.cameras.main
+
         const speed = 4
 
 
         this.physics.add.collider(ninja1, Ground)
 
+
+        const speed = 3
+
+        const speed = 4
+
+
         if (this.cursors.left.isDown) {
             //moveLeft
             console.log('left')
-            cam.scrollX -= speed
+
             ninja1.setFlipX(true)
             ninja1.setVelocityX(-270)
             console.log(ninja1.velocityX)
@@ -167,6 +260,15 @@ class Play extends Phaser.Scene {
         } else { ninja1.play('ninja1_idle', true) }
 
 
+    }
+}
+
+
+
+        } else if (this.cursors.right.isDown) {
+            cam.scrollX += speed
+            console.log('right')
+        }
     }
 }
 

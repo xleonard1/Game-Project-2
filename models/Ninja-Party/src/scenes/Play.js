@@ -30,6 +30,7 @@ class Play extends Phaser.Scene {
     // Having this function imported from the Preload.js was returning an error of 'left is undefined'
     preload() {
         this.cursors = this.input.keyboard.createCursorKeys()
+        this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
 
     create() {
@@ -81,6 +82,35 @@ class Play extends Phaser.Scene {
             repeat: -1
         });
 
+        //Animate ninja while attacking 
+        this.anims.create({
+            key: 'ninja1_attack',
+            frames: [
+                { key: 'ninja1_attack1', frame: null },
+                { key: 'ninja1_attack2', frame: null },
+                { key: 'ninja1_attack3', frame: null },
+                { key: 'ninja1_attack4', frame: null },
+                { key: 'ninja1_attack5', frame: null },
+                { key: 'ninja1_attack6', frame: null }
+            ],
+            frameRate: 8,
+            repeat: 0
+        });
+
+        //Sword animation during attack
+        this.anims.create({
+            key: 'ninja1_sword',
+            frames: [
+                { key: 'ninja1_sword1', frame: null },
+                { key: 'ninja1_sword2', frame: null },
+                { key: 'ninja1_sword3', frame: null },
+                { key: 'ninja1_sword4', frame: null },
+                { key: 'ninja1_sword5', frame: null },
+                { key: 'ninja1_sword6', frame: null }
+            ],
+            frameRate: 8,
+            repeat: 0
+        });
 
         const width = this.scale.width
         const height = this.scale.height
@@ -115,7 +145,7 @@ class Play extends Phaser.Scene {
 
         ninja1.setCollideWorldBounds(true);
 
-        ninja1.body.checkCollision = { up: true, down: true, left: false, right: false };
+
         ninja1.body.gravity.y = 700;
 
         this.cameras.main.setBounds(0, 0, width * 3, height)
@@ -128,8 +158,9 @@ class Play extends Phaser.Scene {
         const speed = 4
 
 
-        this.physics.add.collider(ninja1, Ground)
 
+
+        //Conditionals for player action/anmimation
         if (this.cursors.left.isDown) {
             //moveLeft
             console.log('left')
@@ -150,11 +181,16 @@ class Play extends Phaser.Scene {
             ninja1.setFlipX(true)
             ninja1.play('ninja1_jump', true)
             console.log('jump')
+
         } else if (this.cursors.up.isDown) {
             ninja1.setVelocityY(-330)
             ninja1.setFlipX(false)
             ninja1.play('ninja1_jump', true)
             console.log('jump')
+
+        } else if (this.cursors.space.isDown) {
+            ninja1.play('ninja1_attack')
+            console.log('attack')
         } else { ninja1.setVelocityX(0) }
 
         // ninja1.play('ninja1_idle')

@@ -1,24 +1,22 @@
-header, .project:not(:last-child) {
-  border-bottom: 1px solid #ccc;
+body, html {
+  height: 100%;
 }
 
-.no-button {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  color: #1b89bc;
-  text-decoration: none;
-  font-size: 100%;
+
+.nav-link {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  display: inline-block;
+  font-size: 1.8rem;
+}
+.navbar-brand {
+  font-weight: bolder;
+  
 }
 
-.no-button:hover {
-  color: #065b83;
-  text-decoration: underline;
+.form {
+  
+  justify-content: space-between;
+
 }
 
-.dollar-amount {
-  color: #056605;
-  font-weight: bold;
-  margin-left: -5px;
-}
+

@@ -5,19 +5,13 @@ body, html {
     background-color: #ffff;
     height: 100%;
     position: relative;
-    border-bottom: solid;
-    border-color: rgb(224, 224, 224);
 
-}
-
-.nav-link {
-   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
 }
 
 .hero-text {
     text-align: center;
     position: absolute;
-    top: 50%;
+    top: 20rem;
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;

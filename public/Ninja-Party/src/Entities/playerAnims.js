@@ -42,4 +42,35 @@ export default (anims) => {
         frameRate: 2,
         repeat: 1
     });
+
+    //Animate ninja while attacking 
+    anims.create({
+        key: 'ninja1_attack',
+        frames: [
+            { key: 'ninja1_attack1', frame: null },
+            { key: 'ninja1_attack2', frame: null },
+            { key: 'ninja1_attack3', frame: null },
+            { key: 'ninja1_attack4', frame: null },
+            { key: 'ninja1_attack5', frame: null },
+            { key: 'ninja1_attack6', frame: null }
+        ],
+        frameRate: 8,
+        repeat: -1
+
+    });
+
+    //Sword animation during attack
+    anims.create({
+        key: 'ninja1_sword',
+        frames: [
+            { key: 'ninja1_sword1', frame: null },
+            { key: 'ninja1_sword2', frame: null },
+            { key: 'ninja1_sword3', frame: null },
+            { key: 'ninja1_sword4', frame: null },
+            { key: 'ninja1_sword5', frame: null },
+            { key: 'ninja1_sword6', frame: null }
+        ],
+        frameRate: 8,
+        repeat: -1
+    });
 }

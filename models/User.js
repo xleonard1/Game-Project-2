@@ -20,6 +20,13 @@ User.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
+
+    avatar: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+
+
     name: {
       type: DataTypes.STRING,
       allowNull: false,

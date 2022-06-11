@@ -22,6 +22,7 @@ const createParallax = (scene, count, layer, scrollFactor) => {
 
 
 
+
 class Play extends Phaser.Scene {
 
     constructor(config) {
@@ -38,6 +39,50 @@ class Play extends Phaser.Scene {
 
 
 
+        //Animate ninja1 while idle 
+        this.anims.create({
+            key: 'ninja1_idle',
+            frames: [
+                { key: 'ninja1_idle1', frame: null },
+                { key: 'ninja1_idle2', frame: null },
+                { key: 'ninja1_idle3', frame: null },
+                { key: 'ninja1_idle4', frame: null },
+                { key: 'ninja1_idle5', frame: null }
+            ],
+            frameRate: 8,
+            repeat: -1
+        });
+
+        //Animate ninja while running
+        this.anims.create({
+            key: 'ninja1_run',
+            frames: [
+                { key: 'ninja1_run1', frame: null },
+                { key: 'ninja1_run2', frame: null },
+                { key: 'ninja1_run3', frame: null },
+                { key: 'ninja1_run4', frame: null },
+                { key: 'ninja1_run5', frame: null },
+                { key: 'ninja1_run6', frame: null },
+                { key: 'ninja1_run7', frame: null },
+                { key: 'ninja1_run8', frame: null }
+            ],
+            frameRate: 8,
+            repeat: -1
+        });
+
+        //Animate ninja while jumping
+        this.anims.create({
+            key: 'ninja1_jump',
+            frames: [
+                { key: 'ninja1_jump1', frame: null },
+                { key: 'ninja1_jump2', frame: null },
+                { key: 'ninja1_jump3', frame: null }
+            ],
+            frameRate: 8,
+            repeat: -1
+        });
+
+
         //Animate ninja while attacking 
         this.anims.create({
             key: 'ninja1_attack',
@@ -51,6 +96,7 @@ class Play extends Phaser.Scene {
             ],
             frameRate: 8,
             repeat: -1
+
         });
 
         //Sword animation during attack
@@ -91,13 +137,13 @@ class Play extends Phaser.Scene {
 
         this.cameras.main.setBounds(0, 0, width * 1000, height);
         this.setupFollowupCameraOn(player);
-
+            
+   
     }
 
 
 
     update() {
-
     }
 
     createPlayer() {
@@ -109,6 +155,7 @@ class Play extends Phaser.Scene {
     setupFollowupCameraOn(player) {
         const speed = 4;
         this.cameras.main.startFollow(player).scrollX += speed
+       
     }
 }
 

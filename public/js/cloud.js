@@ -1,7 +1,3 @@
-// 1. Import classes
-//===================
-
-// Import the Cloudinary class.
 import {Cloudinary} from "@cloudinary/url-gen";
 import {Transformation} from "@cloudinary/url-gen";
 
@@ -20,16 +16,16 @@ import {compass} from "@cloudinary/url-gen/qualifiers/gravity";
 import {focusOn} from "@cloudinary/url-gen/qualifiers/gravity";
 import {FocusOn} from "@cloudinary/url-gen/qualifiers/focusOn";
 
-// Import any actions required for transformations.
-import {fill} from "@cloudinary/url-gen/actions/resize";
 
+// Create and configure your Cloudinary instance.
+const cld = new Cloudinary({
+  cloud: {
+    cloudName: 'dcldpb9uf'
+  }
+}); 
 
-// 2. Set your cloud name
-//========================
-
-// Create a Cloudinary instance and set your cloud name.
-/ Instantiate a CloudinaryImage object for the image with public ID, 'front_face'.
-const myImage = cld.image('front_face');
+// Instantiate a CloudinaryImage object for the image with public ID, 'front_face'.
+const myImage = cld.image();
 
 // Perform the transformation.
 myImage
@@ -46,7 +42,6 @@ myImage
   )
   .position(new Position().gravity(compass('south_east')).offsetX(5).offsetY(5))   // Position the logo.
 )
-.rotate(byAngle(10))  // Rotate the result.
 .format('png');   // Deliver as PNG. */
 
 // Render the image in an 'img' element.

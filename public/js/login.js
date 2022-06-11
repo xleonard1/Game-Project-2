@@ -1,3 +1,6 @@
+let avatar = '';
+
+
 const loginFormHandler = async (event) => {
   event.preventDefault();
 
@@ -32,7 +35,7 @@ const signupFormHandler = async (event) => {
   if (name && email && password) {
     const response = await fetch('/api/users', {
       method: 'POST',
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ name, email, password, avatar }),
       headers: { 'Content-Type': 'application/json' },
     });
 
@@ -43,11 +46,59 @@ const signupFormHandler = async (event) => {
     }
   }
 };
+// widget code
+
+const cloudName = "dcldpb9uf"; // replace with your own cloud name
+const uploadPreset = "qxxprkel"; // replace with your own upload preset
+let uploadWidget = document.querySelector("#upload_widget")
+
+
+const myWidget = cloudinary.createUploadWidget(
+  {
+    cloudName: cloudName,
+    uploadPreset: uploadPreset,
+    sources: [
+        "local",
+        "url",
+        "camera",
+        "image_search",
+        "google_drive",
+        "facebook",
+        "dropbox",
+        "instagram",
+        "shutterstock",
+        "getty",
+        "istock",
+        "unsplash"
+    ]
+  },
+  (error, result) => {
+    if (!error && result && result.event === "success") {
+      console.log("Done! Here is the image info: ", result.info);
+      avatar = result.info.secure_url
+      // document
+      //   .getElementById("uploadedimage")
+      //   .setAttribute("src", result.info.secure_url);
+    }
+  }
+);
+
+document.getElementById("upload_widget").addEventListener(
+  "click",
+  function (event) {
+    event.preventDefault();
+    myWidget.open();
+  },
+  false
+);
+
+
+
 
 document
   .querySelector('.login-form')
   .addEventListener('submit', loginFormHandler);
 
 document
-  .querySelector('.signup-form')
-  .addEventListener('submit', signupFormHandler);
+  .querySelector('#signup-button')
+  .addEventListener('click', signupFormHandler);

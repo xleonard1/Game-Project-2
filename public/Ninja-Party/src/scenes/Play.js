@@ -31,7 +31,6 @@ class Play extends Phaser.Scene {
     }
 
 
-
     create() {
 
         const width = this.scale.width
@@ -62,7 +61,6 @@ class Play extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, width * 1000, height);
         this.setupFollowupCameraOn(player);
 
-
     }
 
 
@@ -79,7 +77,7 @@ class Play extends Phaser.Scene {
     setupFollowupCameraOn(player) {
         const speed = 4;
         this.cameras.main.startFollow(player).scrollX += speed
-
+       
     }
 }
 

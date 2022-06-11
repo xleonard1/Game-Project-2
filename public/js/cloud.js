@@ -28,3 +28,27 @@ import {fill} from "@cloudinary/url-gen/actions/resize";
 //========================
 
 // Create a Cloudinary instance and set your cloud name.
+/ Instantiate a CloudinaryImage object for the image with public ID, 'front_face'.
+const myImage = cld.image('front_face');
+
+// Perform the transformation.
+myImage
+.resize(thumbnail().width(150).height(150).gravity(focusOn(FocusOn.face()))) // Crop the image.
+.roundCorners(byRadius(20))    // Round the corners.
+.effect(sepia())  // Apply a sepia effect.
+.overlay(   // Overlay the Cloudinary logo.
+  source(
+    image('cloudinary_icon_blue')
+      .transformation(new Transformation()
+      .resize(scale(50)) // Resize the logo.
+        .adjust(opacity(60))  // Adjust the opacity of the logo.
+      .adjust(brightness(200)))  // Adjust the brightness of the logo.       
+  )
+  .position(new Position().gravity(compass('south_east')).offsetX(5).offsetY(5))   // Position the logo.
+)
+.rotate(byAngle(10))  // Rotate the result.
+.format('png');   // Deliver as PNG. */
+
+// Render the image in an 'img' element.
+const imgElement = document.createElement('img');
+imgElement.src = myImage.toURL();

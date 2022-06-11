@@ -15,6 +15,7 @@
 
    {{!-- home page style sheet --}}
     <link href="/css/home.css" rel="stylesheet">
+
   </head>
 
     <title>ADVENTURER</title>
@@ -32,19 +33,23 @@
               <li class="nav-item">
 
                 <a class="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
-              {{#if logged_in}}
-              <li class="nav-item"></li>
-               <a class = "nav-link" href="/profile/">profile</a> 
 
-               <button class="no-button" id="logout">logout</button>
+              </li>
+            
+              {{#if logged_in}}
+              <li class="nav-item">
+               <a class = "nav-link" href="/profile/">profile</a> 
+               </li>
+               <li class="nav-item">
+               <a class="nav-link" id="logout">logout</a>
                </li>
               <li class="nav-item">
                 <a class="nav-link" href="/avatars/">Leader Board</a>
               </li>
               {{else}}
-
+              <li class ="nav-item">
               <a class = 'nav-link'href="/login">login</a>
+              </li>
 
               {{/if}}
             </ul>
@@ -83,6 +88,7 @@
       </nav>
 
     </header> --}}
+
 
     {{!-- </header> --}}
 

@@ -16,6 +16,17 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+
+    avatar: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+
+
     name: {
       type: DataTypes.STRING,
       allowNull: false,

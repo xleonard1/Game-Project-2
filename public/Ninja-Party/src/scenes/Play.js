@@ -22,13 +22,13 @@ const createParallax = (scene, count, layer, scrollFactor) => {
 
 
 
+
 class Play extends Phaser.Scene {
 
     constructor(config) {
         super('PlayScene');
         this.config = config;
     }
-
 
 
     create() {
@@ -104,7 +104,7 @@ class Play extends Phaser.Scene {
 
 
 
-
+  
 }
 
 

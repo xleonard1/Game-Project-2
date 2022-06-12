@@ -29,15 +29,14 @@ const config = {
     default: 'arcade',
     arcade: {
       gravity: { y: 300 },
-      debug: false,
+      debug: true,
       checkCollision: {
         up: true,
         down: true,
         left: true,
         right: false
       },
-      gravity: { y: 300 },
-      debug: false
+      gravity: { y: 300 }
     }
   },
   scene: initScenes()

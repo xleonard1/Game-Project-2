@@ -53,6 +53,11 @@ class Preload extends Phaser.Scene {
         this.load.image('ninja1_sword5', 'assets/Ninja-Attack/two hands sword 1_attack_4.png');
         this.load.image('ninja1_sword6', 'assets/Ninja-Attack/two hands sword 1_attack_5.png');
 
+        //Load images for Skeleton when idle
+        this.load.spritesheet('Skeleton', 'assets/Monsters/Skeleton/Idle.png', {
+            frameWidth: 150, frameHeight: 150
+        });
+
         //Load images for background layers
         this.load.image('layer1', 'assets/Background/Layer_1.png');
         this.load.image('layer2', 'assets/Background/Layer_2.png');

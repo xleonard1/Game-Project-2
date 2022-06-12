@@ -21,6 +21,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.playerSpeed = 250;
         this.jumpCount = 0;
         this.consecutiveJumps = 1;
+
+        this.setSize(this.width - 54, this.height - 47)
+        this.setOffset(26, 34)
         //While in Arcade super class .scene must be used since input is used in a scene context
         this.cursors = this.scene.input.keyboard.createCursorKeys();
 
@@ -28,7 +31,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.setCollideWorldBounds(true);
 
         initAnimations(this.scene.anims);
-
     }
 
     //Event listener used to get info from Scenes to run update() vs. the preUpdate life-cycle function

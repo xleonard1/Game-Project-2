@@ -31,5 +31,19 @@ body, html {
   margin-top: 4rem;
 }
 
+.stats-card {
+  display: flex;
+  flex-direction: row; 
+  margin-top: 5.4rem;
+  margin-right: 15px;
+}
+
+.stats-list {
+
+  flex-direction: row;
+}
+.welcome-row {
+  justify-content: space-between;
+}
 
 

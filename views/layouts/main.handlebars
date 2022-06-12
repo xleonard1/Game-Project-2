@@ -30,10 +30,12 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+              {{#unless logged_in}}
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/">Home</a>
 
               </li>
+              {{/unless}}
             
               {{#if logged_in}}
               <li class="nav-item">

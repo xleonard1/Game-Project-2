@@ -1,4 +1,3 @@
-
 import Phaser from 'phaser';
 import Player from '../Entities/Player';
 import Skeleton from '../Entities/Skeleton';

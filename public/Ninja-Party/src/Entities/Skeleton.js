@@ -17,6 +17,7 @@ class Skeleton extends Phaser.Physics.Arcade.Sprite {
 
         this.init();
         this.initEvents()
+
     }
     init() {
         this.gravity = 500;
@@ -30,6 +31,7 @@ class Skeleton extends Phaser.Physics.Arcade.Sprite {
         this.setOrigin(0.5, 1);
         this.body.setGravityY(this.gravity);
 
+
         initAnimations(this.scene.anims);
 
 
@@ -41,13 +43,16 @@ class Skeleton extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
-        const onFloor = this.body.onFloor();
 
+        const onFloor = this.body.onFloor();
 
         if (onFloor) {
 
             this.play('Skeleton', true)
         }
+
+        this.setVelocityX(-100)
+
     }
 
 }

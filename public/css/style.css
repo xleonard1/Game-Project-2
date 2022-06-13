@@ -12,11 +12,38 @@ body, html {
   font-weight: bolder;
   
 }
+.userJumbotron{
+  height: 40%;
+  position: relative;
+}
+
 
 .form {
   
   justify-content: space-between;
 
+}
+
+#avatar {
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  margin-top: 4rem;
+}
+
+.stats-card {
+  display: flex;
+  flex-direction: row; 
+  margin-top: 5.4rem;
+  margin-right: 15px;
+}
+
+.stats-list {
+
+  flex-direction: row;
+}
+.welcome-row {
+  justify-content: space-between;
 }
 
 

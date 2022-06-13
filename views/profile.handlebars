@@ -1,48 +1,46 @@
-<div class="row">
-  <div class="col-auto">
-    <h2>Welcome, {{name}}!</h2>
-  </div>
-</div>
 
-<div class="row mt-4">
-  {{!-- <div class="col-md-6">
-    <h3>Create a New Project:</h3>
 
-    <form class="form new-project-form">
-      <div class="form-group">
-        <label for="project-name">project name:</label>
-        <input class="form-input" type="text" id="project-name" name="project-name" />
-      </div>
-      <div class="form-group">
-        <label for="project-funding">needed funding ($):</label>
-        <input class="form-input" type="number" id="project-funding" name="project-funding" />
-      </div>
-      <div class="form-group">
-        <label for="project-desc">description:</label>
-        <textarea class="form-input" id="project-desc" name="project-desc"></textarea>
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary">Create</button>
-      </div>
-    </form>
-  </div> --}}
-
-  {{#if projects.length}}
-  <div class="col-md-6 project-list">
-    <h3>Current Projects:</h3>
-
-    {{#each projects as |project|}}
-    <div class="row mb-2">
-      <div class="col-md-8">
-        <h4><a href="/project/{{project.id}}">{{project.name}}</a></h4>
-      </div>
-      <div class="col-md-4">
-        <button class="btn btn-sm btn-danger" data-id="{{project.id}}">DELETE</button>
+<div class=" welcome-row row row-cols-1 row-cols-md-2 g-2">
+ <div class="usercard card mb-3" style="max-width: 500px; height: 10rem">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{avatar}}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h2 class="card-title">{{username}}</h2>
+        <h5 class="card-title">{{name}}</h5>
+        {{#if logged_in}}
+        <p class="card-text">online</p>
+        {{else}}
+        <p class="card-text">off-line</p>
+        {{/if}}
       </div>
     </div>
-    {{/each}}
   </div>
-  {{/if}}
+ </div>
+
+
+  <div class="stats-card card" style="width: 500px; height: 5rem">
+    <div class="card-header">
+      Stats
+    </div>
+      <ul class="stats-list list-group list-group-flush">
+        <li class="list-group-item">Games</li>
+        <li class="list-group-item">High Schore</li>
+        <li class="list-group-item">Enemies Killed</li>
+      </ul>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+    Play Game
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Jump into Nin Go</h5>
+    <p class="card-text">Choose various ninja, fight enemies, survive! How long can you survive?</p>
+    <a href="/game/" class="btn btn-primary">Start Game</a>
+  </div>
 </div>
 
 <script src="./js/profile.js"></script>

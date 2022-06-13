@@ -73,4 +73,14 @@ export default (anims) => {
         frameRate: 8,
         repeat: -1
     });
+
+
+    anims.create({
+        key: 'Skeleton',
+        frames: anims.generateFrameNumbers('Skeleton', { start: 0, end: 3 }),
+        frameRate: 4,
+        repeat: -1
+    });
+
+
 }

@@ -1,12 +1,12 @@
 import Phaser from 'phaser';
 import Player from '../Entities/Player';
 import Skeleton from '../Entities/Skeleton';
-
-let platforms = null
-let ninja1 = null
+var pv
+const enemyArray = []
 var player
-
-
+const playerArray = []
+var enemy
+var ev
 
 const createParallax = (scene, count, layer, scrollFactor) => {
     let x = 0
@@ -22,7 +22,6 @@ const createParallax = (scene, count, layer, scrollFactor) => {
 
 
 
-
 class Play extends Phaser.Scene {
 
     constructor(config) {
@@ -31,10 +30,14 @@ class Play extends Phaser.Scene {
     }
 
 
+
     create() {
 
+
+
+
         this.physics.world.setBounds(0, 0, this.width, 745)
-        let Ground = 'layer11'
+
         const width = this.scale.width
         const height = this.scale.height
 
@@ -56,33 +59,39 @@ class Play extends Phaser.Scene {
         const enemy = this.createManySprites(this, 100, Skeleton)
 
 
+
+
+
         const player = this.createPlayer();
         player.setCollideWorldBounds(true);
+        playerArray.push(player)
+        console.log(playerArray)
+
+
 
         this.physics.add.collider(player, this.enemyGroup)
 
         this.cameras.main.setBounds(0, 0, width * 1000, height);
         this.setupFollowupCameraOn(player);
 
-
     }
 
-    update() {
+    // 60 cyles/sec
+    update(time, delta) {
 
+        const enemyDirection = this.checkDirection()
+        const getPlayer = this.getPlayer()
+        const nestedLoopNightmare = this.followTheLeader()
     }
 
 
 
     createPlayer() {
-        return new Player(this, 0.5, 0.5).setScale(4.3);
+        return new Player(this, 100, 0.5).setScale(4.3);
     }
 
     createEnemy() {
         return new Skeleton(this, 100, 0.5).setScale(2);
-    }
-
-    createPlayerColliders(player, { colliders }) {
-        player.addCollider(enemy)
     }
 
     setupFollowupCameraOn(player) {
@@ -94,17 +103,62 @@ class Play extends Phaser.Scene {
 
         for (var i = 0; i < count; i++) {
 
-            var enemy = this.physics.add.existing(new layer(this, Phaser.Math.Between(500, this.game.config.width + 10000), .5)).setScale(2).setFlipX(true);;
+            var enemy = this.physics.add.existing(new layer(this, Phaser.Math.Between(500, this.game.config.width + 10000), .5)).setScale(2);;
             this.enemyGroup.add(enemy)
+            enemy.setVelocityX(-(Math.random() * 100) + 40)
+            enemyArray.push(enemy)
+            const ev = enemy.body.velocity.x
             enemy.setCollideWorldBounds(true)
             enemy.setImmovable(true);
+
         }
 
     }
 
+    getPlayer() {
+        for (var i = 0; i < playerArray.length; i++) {
+            if (playerArray[i].body.velocity.x < 0) {
+                console.log('running left')
+            }
+        }
+    }
+
+    checkDirection() {
+        for (var i = 0; i < enemyArray.length; i++) {
+            if (enemyArray[i].body.velocity.x < 0) {
+                enemyArray[i].setFlipX(true)
+            } else if (enemyArray[i].body.velocity.x > 0)
+                enemyArray[i].setFlipX(false)
+
+        }
+    }
+
+    checkHowClose() {
+        for (var i = 0; i < enemyArray.length; i++) {
+            if (enemyArray[i].body.velocity.x < 0) {
+                enemyArray[i].setFlipX(true)
+            } else if (enemyArray[i].body.velocity.x > 0)
+                enemyArray[i].setFlipX(false)
+
+        }
+    }
+
+    followTheLeader() {
+        for (var i = 0; i < enemyArray.length; i++) {
+            for (var j = 0; j < playerArray.length; j++)
+                if (enemyArray[i].body.x < playerArray[j].x && enemyArray[i].body.velocity.x < 0) {
+                    enemyArray[i].setVelocityX(enemyArray[i].body.velocity.x * -1)
+                } else if (enemyArray[i].body.x > playerArray[j].x && enemyArray[i].body.velocity.x > 0) {
+                    enemyArray[i].setVelocityX(enemyArray[i].body.velocity.x * -1)
+                } else if (enemyArray[i].body.x < playerArray[j].x && enemyArray[i].body.velocity.x > 0) {
+                    enemyArray[i].setVelocityX(enemyArray[i].body.velocity.x)
+                } else if (enemyArray[i].body.x > playerArray[j].x && enemyArray[i].body.velocity.x < 0) {
+                    enemyArray[i].setVelocityX(enemyArray[i].body.velocity.x)
+                }
+        }
+    }
 
 
-  
 }
 
 

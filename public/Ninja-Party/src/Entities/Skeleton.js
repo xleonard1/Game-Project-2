@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import initAnimations from './playerAnims';
 import collidable from '../mixins/collidable'
 
+
 class Skeleton extends Phaser.Physics.Arcade.Sprite {
 
     constructor(scene, x, y) {
@@ -15,6 +16,7 @@ class Skeleton extends Phaser.Physics.Arcade.Sprite {
         Object.assign(this, collidable)
 
         this.init();
+        this.initEvents()
 
     }
     init() {
@@ -27,6 +29,8 @@ class Skeleton extends Phaser.Physics.Arcade.Sprite {
         this.setImmovable(true)
         this.setCollideWorldBounds(true);
         this.setOrigin(0.5, 1);
+        this.body.setGravityY(this.gravity);
+
 
         initAnimations(this.scene.anims);
 
@@ -39,7 +43,16 @@ class Skeleton extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
+
+        const onFloor = this.body.onFloor();
+
+        if (onFloor) {
+
+            this.play('Skeleton', true)
+        }
+
         this.setVelocityX(-100)
+
     }
 
 }

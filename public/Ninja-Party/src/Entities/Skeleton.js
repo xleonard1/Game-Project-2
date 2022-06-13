@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import initAnimations from './playerAnims';
-import collidable from '../mixins/collidable'
+
 
 
 class Skeleton extends Phaser.Physics.Arcade.Sprite {
@@ -12,8 +12,7 @@ class Skeleton extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
 
 
-        // Mixins // Creating an object with collidable properties for 'this' context
-        Object.assign(this, collidable)
+
 
         this.init();
         this.initEvents()
@@ -51,7 +50,7 @@ class Skeleton extends Phaser.Physics.Arcade.Sprite {
         }
 
 
-        this.setVelocityX(-100)
+
     }
 
 }

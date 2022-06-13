@@ -2,6 +2,8 @@
 import Phaser from 'phaser';
 import Player from '../Entities/Player';
 import Skeleton from '../Entities/Skeleton';
+var currentScore = 0
+var gameState = { score: currentScore };
 var pv
 const enemyArray = []
 var player
@@ -34,9 +36,6 @@ class Play extends Phaser.Scene {
 
     create() {
 
-
-
-
         this.physics.world.setBounds(0, 0, this.width, 745)
 
         const width = this.scale.width
@@ -55,6 +54,7 @@ class Play extends Phaser.Scene {
         createParallax(this, 1000, 'layer10', .9)
         createParallax(this, 1000, 'layer11', 1)
 
+        gameState.scoreText = this.add.text(23, 60, 'Score: 0', { fontSize: '25px', fill: '#000000' })
 
         this.enemyGroup = this.physics.add.group()
         const enemy = this.createManySprites(this, 100, Skeleton)
@@ -67,10 +67,12 @@ class Play extends Phaser.Scene {
         player.setCollideWorldBounds(true);
         playerArray.push(player)
         console.log(playerArray)
+        const healthBarBackground = this.makeBar(23, 25, 0xFFFFFF);
+        const healthBar = this.makeBar(23, 25, 0x40E213);
+        this.setValue(healthBar, 100);
+        console.log(healthBar.x)
 
-
-
-        this.physics.add.collider(player, this.enemyGroup)
+        this.physics.add.collider(player, this.enemyGroup, this.takesHit, this.testing)
 
         this.cameras.main.setBounds(0, 0, width * 1000, height);
         this.setupFollowupCameraOn(player);
@@ -80,9 +82,12 @@ class Play extends Phaser.Scene {
     // 60 cyles/sec
     update(time, delta) {
 
+
         const enemyDirection = this.checkDirection()
         const getPlayer = this.getPlayer()
-        const nestedLoopNightmare = this.followTheLeader()
+        const followPLayer = this.followTheLeader()
+
+
     }
 
 
@@ -137,9 +142,9 @@ class Play extends Phaser.Scene {
     checkHowClose() {
         for (var i = 0; i < enemyArray.length; i++) {
             if (enemyArray[i].body.velocity.x < 0) {
-                enemyArray[i].setFlipX(true)
-            } else if (enemyArray[i].body.velocity.x > 0)
                 enemyArray[i].setFlipX(false)
+            } else if (enemyArray[i].body.velocity.x > 0)
+                enemyArray[i].setFlipX(true)
 
         }
     }
@@ -160,6 +165,55 @@ class Play extends Phaser.Scene {
     }
 
 
+
+    takesHit() {
+        // if (this.hasBeenHit) { return };
+        this.hasBeenHit = true;
+        gameState.scoreText.setText('Score: ' + (currentScore += 10))
+        // this.bounceOff();
+        console.log('hit')
+
+    }
+
+    bounceOff() {
+        this.body.touching.right ?
+            this.setVelocityX(-this.bounceVelocity) :
+            this.setVelocityX(this.bounceVelocity)
+
+        setTimeout(() => this.setVelocityY(-this.bounceVelocity), 0);
+    }
+
+    testing() {
+        console.log('test my baby.')
+    }
+
+    makeBar(x, y, color) {
+        // this.bar.clear()
+        //draw the bar
+        let bar = this.add.graphics();
+
+        //color the bar
+        bar.fillStyle(color);
+
+        //fill the bar with a rectangle
+        bar.fillRect(0, 0, 200, 25);
+
+        //position the bar
+        bar.x = x;
+        bar.y = y;
+
+        //return the bar
+        return bar;
+    }
+
+    setValue(bar, percentage) {
+        //scale the bar
+        bar.scaleX = percentage / 100;
+    }
+
+    updateScore() {
+
+    }
 }
 
 

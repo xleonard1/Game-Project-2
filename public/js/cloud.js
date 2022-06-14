@@ -1,10 +1,4 @@
 
-
-// 1. Import classes
-
-
-// Import the Cloudinary class.
-
 import {Cloudinary} from "@cloudinary/url-gen";
 import {Transformation} from "@cloudinary/url-gen";
 
@@ -43,7 +37,7 @@ import {fill} from "@cloudinary/url-gen/actions/resize";
 
 
 // Create a Cloudinary instance and set your cloud name.
-/ Instantiate a CloudinaryImage object for the image with public ID, 'front_face'.
+// Instantiate a CloudinaryImage object for the image with public ID, 'front_face'.
 const myImage = cld.image('front_face');
 
 

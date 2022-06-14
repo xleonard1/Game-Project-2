@@ -38,6 +38,11 @@ const delButtonHandler = async (event) => {
   }
 };
 
+document
+.querySelector('.startGame-btn')
+.addEventListener('click', function(event) {
+  event.preventDefault()
+})
 
 
 document

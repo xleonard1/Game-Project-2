@@ -49,29 +49,17 @@ router.get('/project/:id', async (req, res) => {
   }
 });
 
-router.get("/game/", async (req, res) => {
-  try {
-    const gameData = await Game.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['username'],
-        },
-      ],
-    });
 
-    const game = gameData.get({plain: true})
 
-     
-  res.render('game', {
-    ...game,
-    logged_in: req.session.logged_in 
+
+router.get("/game", function(req, res) {
+        res.sendFile(path.join(__dirname, "../Ninja-Party/index.html"));
   });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-  
- });
+
+
+
+
+
 
 
 
@@ -104,5 +92,7 @@ router.get('/login', (req, res) => {
 
   res.render('login');
 });
+
+start.addEventListener('click', GameStartHandler);
 
 module.exports = router;

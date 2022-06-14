@@ -2,7 +2,7 @@
 import Phaser from 'phaser';
 import Player from '../Entities/Player';
 import Skeleton from '../Entities/Skeleton';
-import PhaserHealth from 'phaser-component-health';
+
 
 var currentScore = 0
 var gameState = { score: currentScore };
@@ -70,7 +70,6 @@ class Play extends Phaser.Scene {
 
         const player = this.createPlayer();
         player.setCollideWorldBounds(true);
-        PhaserHealth.AddTo(player, 100, 0, 100);
         playerArray.push(player)
 
 
@@ -85,7 +84,7 @@ class Play extends Phaser.Scene {
         healthBarBackground.setScrollFactor(0)
         healthBar.setScrollFactor(0)
 
-        this.physics.add.collider(player, this.enemyGroup, this.takesHit, player.damage(1))
+        this.physics.add.collider(player, this.enemyGroup, this.takesHit)
 
         this.cameras.main.setBounds(0, 0, width * 1000, height);
         this.setupFollowupCameraOn(player);

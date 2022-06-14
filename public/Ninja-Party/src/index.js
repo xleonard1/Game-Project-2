@@ -33,7 +33,7 @@ const config = {
       checkCollision: {
         up: true,
         down: true,
-        left: false,
+        left: true,
         right: false
       },
       gravity: { y: 300 }

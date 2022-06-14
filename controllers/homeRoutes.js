@@ -49,6 +49,15 @@ router.get('/project/:id', async (req, res) => {
   }
 });
 
+router.get("/game", function(req, res) {
+  if (!req.user) {
+      res.redirect("/login");
+  } else {
+      res.sendFile(path.join(__dirname, "../public/Ninja-Party/index.html"));
+  }
+});
+
+
 // Use withAuth middleware to prevent access to route
 router.get('/profile', withAuth, async (req, res) => {
   try {

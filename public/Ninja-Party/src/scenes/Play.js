@@ -2,14 +2,17 @@
 import Phaser from 'phaser';
 import Player from '../Entities/Player';
 import Skeleton from '../Entities/Skeleton';
+import PhaserHealth from 'phaser-component-health';
+
 var currentScore = 0
 var gameState = { score: currentScore };
-var pv
 const enemyArray = []
 var player
 const playerArray = []
 var enemy
-var ev
+var cursors
+var health = 101
+var healthBar
 
 const createParallax = (scene, count, layer, scrollFactor) => {
     let x = 0
@@ -36,6 +39,7 @@ class Play extends Phaser.Scene {
 
     create() {
 
+        cursors = this.input.keyboard.createCursorKeys();
         this.physics.world.setBounds(0, 0, this.width, 745)
 
         const width = this.scale.width
@@ -55,6 +59,7 @@ class Play extends Phaser.Scene {
         createParallax(this, 1000, 'layer11', 1)
 
         gameState.scoreText = this.add.text(23, 60, 'Score: 0', { fontSize: '25px', fill: '#000000' })
+        gameState.scoreText.setScrollFactor(0)
 
         this.enemyGroup = this.physics.add.group()
         const enemy = this.createManySprites(this, 100, Skeleton)
@@ -65,14 +70,22 @@ class Play extends Phaser.Scene {
 
         const player = this.createPlayer();
         player.setCollideWorldBounds(true);
+        PhaserHealth.AddTo(player, 100, 0, 100);
         playerArray.push(player)
-        console.log(playerArray)
-        const healthBarBackground = this.makeBar(23, 25, 0xFFFFFF);
-        const healthBar = this.makeBar(23, 25, 0x40E213);
-        this.setValue(healthBar, 100);
-        console.log(healthBar.x)
 
-        this.physics.add.collider(player, this.enemyGroup, this.takesHit, this.testing)
+
+
+        const healthBarBackground = this.makeBar(23, 25, 0xFFFFFF, health);
+        const healthBar = this.makeBar(23, 25, 0x40E213, health);
+
+
+        this.setValue(healthBar, 100);
+        this.setValue(healthBarBackground, 100);
+
+        healthBarBackground.setScrollFactor(0)
+        healthBar.setScrollFactor(0)
+
+        this.physics.add.collider(player, this.enemyGroup, this.takesHit, player.damage(1))
 
         this.cameras.main.setBounds(0, 0, width * 1000, height);
         this.setupFollowupCameraOn(player);
@@ -83,6 +96,8 @@ class Play extends Phaser.Scene {
     update(time, delta) {
 
 
+        const decementHealth = this.decrementHealth()
+        const killEnemy = this.killEnemy()
         const enemyDirection = this.checkDirection()
         const getPlayer = this.getPlayer()
         const followPLayer = this.followTheLeader()
@@ -109,7 +124,7 @@ class Play extends Phaser.Scene {
 
         for (var i = 0; i < count; i++) {
 
-            var enemy = this.physics.add.existing(new layer(this, Phaser.Math.Between(500, this.game.config.width + 10000), .5)).setScale(2);;
+            var enemy = this.physics.add.existing(new layer(this, Phaser.Math.Between(1000, this.game.config.width + 10000), .5)).setScale(2);;
             this.enemyGroup.add(enemy)
             enemy.setVelocityX(-(Math.random() * 100) + 40)
             enemyArray.push(enemy)
@@ -164,30 +179,37 @@ class Play extends Phaser.Scene {
         }
     }
 
+    killEnemy() {
+        for (var i = 0; i < enemyArray.length; i++) {
+            for (var j = 0; j < playerArray.length; j++) {
+                if ((Math.abs(enemyArray[i].body.x - playerArray[j].body.x) < 108) && (Math.abs(enemyArray[i].body.y - playerArray[j].body.y) < 50) && cursors.space.isDown) {
+                    enemyArray[i].setCollideWorldBounds(false).setVisible(false)
+                    gameState.scoreText.setText('Score: ' + (currentScore += 5))
 
+                }
+            }
+        }
+    }
+
+    decrementHealth() {
+        for (var i = 0; i < enemyArray.length; i++) {
+            for (var j = 0; j < playerArray.length; j++) {
+                if ((Math.abs(enemyArray[i].body.x - playerArray[j].body.x) < 40) && (Math.abs(enemyArray[i].body.y - playerArray[j].body.y) < 40)) {
+                    health -= 1
+                    console.log(health)
+                }
+            }
+        }
+    }
 
     takesHit() {
         // if (this.hasBeenHit) { return };
         this.hasBeenHit = true;
-        gameState.scoreText.setText('Score: ' + (currentScore += 10))
         // this.bounceOff();
         console.log('hit')
-
     }
 
-    bounceOff() {
-        this.body.touching.right ?
-            this.setVelocityX(-this.bounceVelocity) :
-            this.setVelocityX(this.bounceVelocity)
-
-        setTimeout(() => this.setVelocityY(-this.bounceVelocity), 0);
-    }
-
-    testing() {
-        console.log('test my baby.')
-    }
-
-    makeBar(x, y, color) {
+    makeBar(x, y, color, length) {
         // this.bar.clear()
         //draw the bar
         let bar = this.add.graphics();
@@ -196,7 +218,7 @@ class Play extends Phaser.Scene {
         bar.fillStyle(color);
 
         //fill the bar with a rectangle
-        bar.fillRect(0, 0, 200, 25);
+        bar.fillRect(0, 0, length, 25);
 
         //position the bar
         bar.x = x;
@@ -207,13 +229,12 @@ class Play extends Phaser.Scene {
     }
 
     setValue(bar, percentage) {
-        //scale the bar
-        bar.scaleX = percentage / 100;
+
+        bar.scaleX = percentage / (100);
+        console.log(percentage)
     }
 
-    updateScore() {
 
-    }
 }
 
 

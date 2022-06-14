@@ -26,7 +26,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.jumpCount = 0;
         //Allowable consecutive jumps
         this.consecutiveJumps = 1;
-        //Set hasBeenHit boolean to default falsle
+        //Set hasBeenHit boolean to default false
         this.hasBeenHit = false;
         //Assign default bounce velocity
         this.bounceVelocity = 250;
@@ -64,6 +64,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         //Get keyboard input for use in update function
         const { left, right, space, up } = this.cursors;
         const isUpJustDown = Phaser.Input.Keyboard.JustDown(up);
+        const isSpaceJustDown = Phaser.Input.Keyboard.JustDown(space);
 
         //Set condition of player touching bottom of World Bounds
         const onFloor = this.body.onFloor();
@@ -83,23 +84,24 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.jumpCount++;
         }
 
+        // if (isSpaceJustDown) {
+        //     this.play('ninja1_sword')
+        // }
+
+
         if (onFloor) {
             this.jumpCount = 0;
         }
 
-        onFloor ?
-            this.body.velocity.x !== 0 ?
-                this.play('ninja1_run', true) : this.play('ninja1_idle', true) : this.play('ninja1_jump', true)
+        isSpaceJustDown ?
+            this.play('ninja1_sword', true) && console.log('sword') :
+            onFloor ?
+                this.body.velocity.x !== 0 ?
+                    this.play('ninja1_run', true) : this.play('ninja1_idle', true) : this.play('ninja1_jump', true)
+
+
     };
 
-    // playDamageTween() {
-    //     this.scene.tweens.add({
-    //         targets: this,
-    //         duration: 100,
-    //         repeat: -1,
-    //         tint: 0xffffff
-    //     })
-    // };
 
 
 }

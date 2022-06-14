@@ -11,16 +11,15 @@
   "license": "ISC",
   "dependencies": {
     "phaser": "^3.24.1",
-<<<<<<< HEAD
+
     "webpack-merge": "^5.1.4",
     "@reactivex/rxjs": "^5.5.6",
     "@types/lodash": "^4.14.91",
     "deprecated-decorator": "^0.1.6",
-    "lodash": "^4.17.4"
-=======
+
     "phaser-component-health": "^3.0.0",
     "webpack-merge": "^5.1.4"
->>>>>>> d6c3e9aa8bce36d3d29e3f12c375182a8d5dc92d
+
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",

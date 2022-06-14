@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Project, User } = require('../models');
+const { Project, User, Game } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -49,13 +49,30 @@ router.get('/project/:id', async (req, res) => {
   }
 });
 
-router.get("/game", function(req, res) {
-  if (!req.user) {
-      res.redirect("/login");
-  } else {
-      res.sendFile(path.join(__dirname, "../public/Ninja-Party/index.html"));
+router.get("/game/", async (req, res) => {
+  try {
+    const gameData = await Game.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ['username'],
+        },
+      ],
+    });
+
+    const game = gameData.get({plain: true})
+
+     
+  res.render('game', {
+    ...game,
+    logged_in: req.session.logged_in 
+  });
+  } catch (err) {
+    res.status(500).json(err);
   }
-});
+  
+ });
+
 
 
 // Use withAuth middleware to prevent access to route

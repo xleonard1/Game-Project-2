@@ -6,13 +6,16 @@ import Skeleton from '../Entities/Skeleton';
 
 var currentScore = 0
 var gameState = { score: currentScore };
+var time_remaining
+var clock
 const enemyArray = []
 var player
 const playerArray = []
 var enemy
 var cursors
-var health = 101
+var health = 200
 var healthBar
+var timedEvent
 
 const createParallax = (scene, count, layer, scrollFactor) => {
     let x = 0
@@ -26,6 +29,11 @@ const createParallax = (scene, count, layer, scrollFactor) => {
 
 }
 
+const message = JSON.stringify({
+    message: currentScore,
+    date: Date.now(),
+});
+
 
 
 class Play extends Phaser.Scene {
@@ -38,6 +46,16 @@ class Play extends Phaser.Scene {
 
 
     create() {
+
+
+        // this.initialTime = 150;
+
+        // time_remaining = this.add.text(32, 32, 'Countdown: ' + this.formatTime(this.initialTime));
+
+        // timedEvent = this.time.addEvent({ delay: 1000, callback: this.gameOver, callbackScope: this, loop: true });
+
+        time_remaining = this.time.delayedCall(10000, this.gameOver);  // delay in ms
+
 
         cursors = this.input.keyboard.createCursorKeys();
         this.physics.world.setBounds(0, 0, this.width, 745)
@@ -60,6 +78,9 @@ class Play extends Phaser.Scene {
 
         gameState.scoreText = this.add.text(23, 60, 'Score: 0', { fontSize: '25px', fill: '#000000' })
         gameState.scoreText.setScrollFactor(0)
+
+        // clock.add.text
+        // scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 
         this.enemyGroup = this.physics.add.group()
         const enemy = this.createManySprites(this, 100, Skeleton)
@@ -95,7 +116,7 @@ class Play extends Phaser.Scene {
     update(time, delta) {
 
 
-        const decementHealth = this.decrementHealth()
+        const decrementHealth = this.decrementHealth()
         const killEnemy = this.killEnemy()
         const enemyDirection = this.checkDirection()
         const getPlayer = this.getPlayer()
@@ -193,7 +214,7 @@ class Play extends Phaser.Scene {
     decrementHealth() {
         for (var i = 0; i < enemyArray.length; i++) {
             for (var j = 0; j < playerArray.length; j++) {
-                if ((Math.abs(enemyArray[i].body.x - playerArray[j].body.x) < 40) && (Math.abs(enemyArray[i].body.y - playerArray[j].body.y) < 40)) {
+                if ((Math.abs(enemyArray[i].body.x - playerArray[j].body.x) < 45) && (Math.abs(enemyArray[i].body.y - playerArray[j].body.y) < 50)) {
                     health -= 1
                     console.log(health)
                 }
@@ -204,26 +225,18 @@ class Play extends Phaser.Scene {
     takesHit() {
         // if (this.hasBeenHit) { return };
         this.hasBeenHit = true;
-        // this.bounceOff();
         console.log('hit')
     }
 
     makeBar(x, y, color, length) {
-        // this.bar.clear()
-        //draw the bar
+
         let bar = this.add.graphics();
-
-        //color the bar
         bar.fillStyle(color);
-
-        //fill the bar with a rectangle
         bar.fillRect(0, 0, length, 25);
-
-        //position the bar
         bar.x = x;
         bar.y = y;
 
-        //return the bar
+        bar.scaleX = 1
         return bar;
     }
 
@@ -233,7 +246,32 @@ class Play extends Phaser.Scene {
         console.log(percentage)
     }
 
+    // returnScore(currentScore) {
+    //     window.parent.postMessage(currentScore, ' = Your High Score')
+    // }
 
+    gameOver() {
+        console.log('timer works!')
+        console.log(currentScore)
+        window.parent.postMessage(message, ' = Your High Score')
+    }
+
+
+    formatTime(seconds) {
+        // Minutes
+        var minutes = Math.floor(seconds / 60);
+        // Seconds
+        var partInSeconds = seconds % 60;
+        // Adds left zeros to seconds
+        partInSeconds = partInSeconds.toString().padStart(2, '0');
+        // Returns formated time
+        return `${minutes}:${partInSeconds}`;
+    }
+
+    onEvent() {
+        this.initialTime -= 1; // One second
+        text.setText('Countdown: ' + formatTime(this.initialTime));
+    }
 }
 
 

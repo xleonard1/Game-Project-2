@@ -27,7 +27,7 @@
     </div>
       <ul class="stats-list list-group list-group-flush">
         <li class="list-group-item">Games</li>
-        <li class="list-group-item">High Schore {{points}}</li>
+        <li class="list-group-item">High Schore {{message}}</li>
         <li class="list-group-item">Enemies Killed</li>
       </ul>
   </div>
@@ -36,20 +36,8 @@
   <div class="card-header">
     Play Game
   </div>
- <iframe id = 'frameID'src ='/Ninja-Party/build' title="game-play" style="width: 1280px; height: 800px"> </iframe>
- <script>
-    window.addEventListener('message', function (e) {
-    // Get the sent data
-    const data = e.data;
+ <iframe id = 'iframeID'src ='/Ninja-Party/build' title="game-play" style="width: 1280px; height: 800px"> </iframe>
 
-    // If you encode the message in JSON before sending them,
-    // then decode here
-    // const decoded = JSON.parse(data);
-
-    console.log(data)
-   });
-    
- </script>
 
   <div class="card-body">
     <h5 class="card-title">Jump into Nin Go</h5>

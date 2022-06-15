@@ -208,7 +208,7 @@ class Play extends Phaser.Scene {
         // console.log('hit')
         if (playerHealth > -100)
             playerHealth -= 1;
-        console.log(playerHealth)
+        // console.log(playerHealth)
 
         bar.setVisible(false)
 

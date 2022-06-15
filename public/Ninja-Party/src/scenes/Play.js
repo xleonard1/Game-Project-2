@@ -29,10 +29,7 @@ const createParallax = (scene, count, layer, scrollFactor) => {
 
 }
 
-const message = JSON.stringify({
-    message: currentScore,
-    date: Date.now(),
-});
+
 
 
 
@@ -251,9 +248,13 @@ class Play extends Phaser.Scene {
     // }
 
     gameOver() {
-        console.log('timer works!')
-        console.log(currentScore)
-        window.parent.postMessage(message, ' = Your High Score')
+        // console.log('timer works!')
+        // console.log(currentScore)
+        const message = JSON.stringify({
+            message: currentScore,
+            date: Date.now(),
+        });
+        window.parent.postMessage(message, '*')
     }
 
 

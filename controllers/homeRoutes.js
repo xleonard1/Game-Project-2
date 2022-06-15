@@ -18,9 +18,9 @@ router.get('/', async (req, res) => {
     const projects = projectData.map((project) => project.get({ plain: true }));
 
     // Pass serialized data and session flag into template
-    res.render('homepage', { 
-      projects, 
-      logged_in: req.session.logged_in 
+    res.render('homepage', {
+      projects,
+      logged_in: req.session.logged_in
     });
   } catch (err) {
     res.status(500).json(err);
@@ -52,9 +52,9 @@ router.get('/project/:id', async (req, res) => {
 
 
 
-router.get("/game", function(req, res) {
-        res.sendFile(path.join(__dirname, "../Ninja-Party/index.html"));
-  });
+router.get("/game", function (req, res) {
+  res.sendFile(path.join(__dirname, "../Ninja-Party/index.html"));
+});
 
 
 
@@ -93,6 +93,5 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
-start.addEventListener('click', GameStartHandler);
 
 module.exports = router;

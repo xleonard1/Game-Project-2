@@ -12,10 +12,12 @@ const enemyArray = []
 var player
 const playerArray = []
 var enemy
+var enemyGroup
 var cursors
 var health = 200
 var healthBar
 var timedEvent
+var button
 
 const createParallax = (scene, count, layer, scrollFactor) => {
     let x = 0
@@ -44,23 +46,16 @@ class Play extends Phaser.Scene {
 
     create() {
 
-
-        // this.initialTime = 150;
-
-        // time_remaining = this.add.text(32, 32, 'Countdown: ' + this.formatTime(this.initialTime));
-
-        // timedEvent = this.time.addEvent({ delay: 1000, callback: this.gameOver, callbackScope: this, loop: true });
-
         time_remaining = this.time.delayedCall(10000, this.gameOver);  // delay in ms
 
-
+        //Get input from cursors
         cursors = this.input.keyboard.createCursorKeys();
         this.physics.world.setBounds(0, 0, this.width, 745)
 
         const width = this.scale.width
         const height = this.scale.height
 
-
+        // Create background with scroll effect
         createParallax(this, 1000, 'layer1', 0)
         createParallax(this, 1000, 'layer2', .1)
         createParallax(this, 1000, 'layer3', .2)
@@ -73,39 +68,30 @@ class Play extends Phaser.Scene {
         createParallax(this, 1000, 'layer10', .9)
         createParallax(this, 1000, 'layer11', 1)
 
-        gameState.scoreText = this.add.text(23, 60, 'Score: 0', { fontSize: '25px', fill: '#000000' })
-        gameState.scoreText.setScrollFactor(0)
+        // startButton = Game Init
+        var button = this.add.sprite(625, 400, "START");
+        button.setInteractive();
 
-        // clock.add.text
-        // scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+        // Sprite Init
+        button.on('pointerdown', () => {
+            const player = this.createPlayer();
+            player.setCollideWorldBounds(true);
+            playerArray.push(player);
+            this.setupFollowupCameraOn(player);
+            console.log(playerArray);
+            this.enemyGroup = this.physics.add.group();
+            const enemy = this.createManySprites(this, 100, Skeleton);
+            this.physics.add.collider(player, this.enemyGroup, this.takesHit);
+        });
 
-        this.enemyGroup = this.physics.add.group()
-        const enemy = this.createManySprites(this, 100, Skeleton)
+        // Properties Init
+        button.on('pointerdown', () => {
+            gameState.scoreText = this.add.text(23, 60, 'Score: 0', { fontSize: '25px', fill: '#000000' })
+            gameState.scoreText.setScrollFactor(0);
+            button.destroy(true)
 
-
-
-
-
-        const player = this.createPlayer();
-        player.setCollideWorldBounds(true);
-        playerArray.push(player)
-
-
-
-        const healthBarBackground = this.makeBar(23, 25, 0xFFFFFF, health);
-        const healthBar = this.makeBar(23, 25, 0x40E213, health);
-
-
-        this.setValue(healthBar, 100);
-        this.setValue(healthBarBackground, 100);
-
-        healthBarBackground.setScrollFactor(0)
-        healthBar.setScrollFactor(0)
-
-        this.physics.add.collider(player, this.enemyGroup, this.takesHit)
-
-        this.cameras.main.setBounds(0, 0, width * 1000, height);
-        this.setupFollowupCameraOn(player);
+            this.cameras.main.setBounds(0, 0, width * 1000, height);
+        });
 
     }
 
@@ -125,7 +111,7 @@ class Play extends Phaser.Scene {
 
 
     createPlayer() {
-        return new Player(this, 100, 0.5).setScale(4.3);
+        return new Player(this, 100, 0.5).setScale(4.3).setCollideWorldBounds(true);
     }
 
     createEnemy() {
@@ -243,20 +229,12 @@ class Play extends Phaser.Scene {
         console.log(percentage)
     }
 
-    // returnScore(currentScore) {
-    //     window.parent.postMessage(currentScore, ' = Your High Score')
-    // }
-
     gameOver() {
-        // console.log('timer works!')
-        // console.log(currentScore)
         const message = JSON.stringify({
-            message: currentScore,
-            date: Date.now(),
+            message: currentScore
         });
         window.parent.postMessage(message, '*')
     }
-
 
     formatTime(seconds) {
         // Minutes
@@ -272,6 +250,14 @@ class Play extends Phaser.Scene {
     onEvent() {
         this.initialTime -= 1; // One second
         text.setText('Countdown: ' + formatTime(this.initialTime));
+    }
+
+    startGame() {
+        // enemyGroup = this.physics.add.group()
+        // const enemy = this.createManySprites(this, 100, Skeleton)
+        // const player = this.createPlayer();
+        // player.setCollideWorldBounds(true);
+        // playerArray.push(player)
     }
 }
 

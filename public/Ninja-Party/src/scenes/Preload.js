@@ -74,7 +74,8 @@ class Preload extends Phaser.Scene {
         //Load Tilemap for ground 
         this.load.tilemapTiledJSON('Ground', 'assets/Tilesets/Ground_Layer.json');
 
-
+        //Load Start Button 
+        this.load.image('START', 'assets/Background/START.png');
 
 
     }

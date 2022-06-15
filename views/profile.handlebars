@@ -9,7 +9,7 @@
     <div class="col-md-8">
       <div class="card-body">
         <h2 class="card-title">{{username}}</h2>
-        <h5 class="card-title">{{name}}</h5>
+        <h5 class="real-name card-title">{{name}}</h5>
         {{#if logged_in}}
         <p class="card-text">online</p>
         {{else}}
@@ -27,7 +27,7 @@
     </div>
       <ul class="stats-list list-group list-group-flush">
         <li class="list-group-item">Games</li>
-        <li class="list-group-item">High Schore</li>
+        <li class="list-group-item">High Schore {{points}}</li>
         <li class="list-group-item">Enemies Killed</li>
       </ul>
   </div>

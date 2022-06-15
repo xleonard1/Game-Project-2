@@ -2,32 +2,32 @@ const router = require('express').Router();
 const { User, Game } = require('../models');
 const withAuth = require('../utils/auth');
 
+// router to get to the homepage
 router.get('/', async (req, res) => {
     res.render('homepage', {title:router});
   
 });
 
-router.get('/Ninja-Party/build/', async (req, res) => {
-  try {
-    const gameData = await Game.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['username'],
-        },
-      ],
-    });
+router.get('/Ninja-Party/', async (req, res) => {
+try {
+  const gameData = await Game.findByPk(req.params.id, {
+    include: [
+      {
+        model: User,
+        attributes: ['name'],
+      },
+    ],
+  });
 
-    const stats = projectData.get({ plain: true });
+  const game = gameData.get({ plain: true });
 
-    res.render('games', {
-      ...stats,
-      logged_in: req.session.logged_in
-    });
-  } catch (err) {
-    res.status(500).json(err);
-    console.log('successfully got data')
-  }
+  res.render('profile', {
+    ...game,
+    logged_in: req.session.logged_in
+  });
+ } catch (err) {
+  res.status(500).json(err);
+ }
 });
 
 
@@ -39,7 +39,7 @@ router.get('/profile', withAuth, async (req, res) => {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
+      include: [{model:Game}]
     });
 
     const user = userData.get({ plain: true });

@@ -84,10 +84,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.jumpCount++;
         }
 
-        // if (isSpaceJustDown) {
-        //     this.play('ninja1_sword')
-        // }
-
 
         if (onFloor) {
             this.jumpCount = 0;

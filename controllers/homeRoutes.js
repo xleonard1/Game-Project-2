@@ -1,64 +1,34 @@
 const router = require('express').Router();
-const { Project, User, Game } = require('../models');
+const { User, Game } = require('../models');
 const withAuth = require('../utils/auth');
 
+// router to get to the homepage
 router.get('/', async (req, res) => {
-  try {
-    // Get all projects and JOIN with user data
-    const projectData = await Project.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
-    });
-
-    // Serialize data so the template can read it
-    const projects = projectData.map((project) => project.get({ plain: true }));
-
-    // Pass serialized data and session flag into template
-    res.render('homepage', { 
-      projects, 
-      logged_in: req.session.logged_in 
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
+    res.render('homepage', {title:router});
+  
 });
 
-router.get('/project/:id', async (req, res) => {
-  try {
-    const projectData = await Project.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
-    });
-
-    const project = projectData.get({ plain: true });
-
-    res.render('project', {
-      ...project,
-      logged_in: req.session.logged_in
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-
-
-
-router.get("/game", function(req, res) {
-        res.sendFile(path.join(__dirname, "../Ninja-Party/index.html"));
+router.get('/Ninja-Party/', async (req, res) => {
+try {
+  const gameData = await Game.findByPk(req.params.id, {
+    include: [
+      {
+        model: User,
+        attributes: ['name'],
+      },
+    ],
   });
 
+  const game = gameData.get({ plain: true });
 
-
-
+  res.render('profile', {
+    ...game,
+    logged_in: req.session.logged_in
+  });
+ } catch (err) {
+  res.status(500).json(err);
+ }
+});
 
 
 
@@ -69,7 +39,7 @@ router.get('/profile', withAuth, async (req, res) => {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
+      include: [{model:Game}]
     });
 
     const user = userData.get({ plain: true });
@@ -92,7 +62,5 @@ router.get('/login', (req, res) => {
 
   res.render('login');
 });
-
-start.addEventListener('click', GameStartHandler);
 
 module.exports = router;

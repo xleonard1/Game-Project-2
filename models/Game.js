@@ -6,6 +6,16 @@ class Game extends Model {}
 
 Game.init(
   {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     points: {
       type: DataTypes.INTEGER,
       allowNull: true,

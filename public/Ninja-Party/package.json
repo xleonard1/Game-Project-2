@@ -1,7 +1,6 @@
 {
   "name": "phaser-webpack-boilerplate",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,8 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "phaser": "^3.24.1",
-    "phaser-component-health": "^3.0.0",
-    "webpack-merge": "^5.1.4"
+    "webpack-merge": "^5.1.4",
+    "@reactivex/rxjs": "^5.5.6",
+    "@types/lodash": "^4.14.91"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
@@ -26,5 +26,7 @@
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
-  }
+  },
+  "keywords": [],
+  "description": ""
 }

@@ -1,7 +1,7 @@
 
 
 <div class=" welcome-row row row-cols-1 row-cols-md-2 g-2">
- <div class="usercard card mb-3" style="max-width: 500px; height: 10rem">
+ <div class="usercard card mb-3" style="max-width: 500px; height: 11.5rem">
   <div class="row g-0">
     <div class="col-md-4">
       <img src="{{avatar}}" class="img-fluid rounded-start" alt="...">
@@ -32,14 +32,29 @@
       </ul>
   </div>
 </div>
-<div class="card">
+<div class="card"style = "width: 1280px">
   <div class="card-header">
     Play Game
   </div>
+ <iframe id = 'frameID'src ='/Ninja-Party/build' title="game-play" style="width: 1280px; height: 800px"> </iframe>
+ <script>
+    window.addEventListener('message', function (e) {
+    // Get the sent data
+    const data = e.data;
+
+    // If you encode the message in JSON before sending them,
+    // then decode here
+    // const decoded = JSON.parse(data);
+
+    console.log(data)
+   });
+    
+ </script>
+
   <div class="card-body">
     <h5 class="card-title">Jump into Nin Go</h5>
     <p class="card-text">Choose various ninja, fight enemies, survive! How long can you survive?</p>
-    <a href="/game/" class="btn btn-primary">Start Game</a>
+    <a href="/Ninja-Party/build/" class="startGame-btn btn btn-primary">Start Game</a>
   </div>
 </div>
 

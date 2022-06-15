@@ -3,6 +3,7 @@ import Phaser from 'phaser';
 import Player from '../Entities/Player';
 import Skeleton from '../Entities/Skeleton';
 
+
 var currentScore = 0
 var gameState = { score: currentScore };
 var time_remaining

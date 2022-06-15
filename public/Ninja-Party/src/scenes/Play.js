@@ -9,15 +9,17 @@ var gameState = { score: currentScore };
 var time_remaining
 var clock
 const enemyArray = []
-var player
+var playerHealth
 const playerArray = []
 var enemy
 var enemyGroup
 var cursors
 var health = 200
-var healthBar
+var bar
+var newBar
 var timedEvent
 var button
+var message
 
 const createParallax = (scene, count, layer, scrollFactor) => {
     let x = 0
@@ -32,9 +34,6 @@ const createParallax = (scene, count, layer, scrollFactor) => {
 }
 
 
-
-
-
 class Play extends Phaser.Scene {
 
     constructor(config) {
@@ -45,8 +44,6 @@ class Play extends Phaser.Scene {
 
 
     create() {
-
-        time_remaining = this.time.delayedCall(10000, this.gameOver);  // delay in ms
 
         //Get input from cursors
         cursors = this.input.keyboard.createCursorKeys();
@@ -68,6 +65,9 @@ class Play extends Phaser.Scene {
         createParallax(this, 1000, 'layer10', .9)
         createParallax(this, 1000, 'layer11', 1)
 
+
+
+
         // startButton = Game Init
         var button = this.add.sprite(625, 400, "START");
         button.setInteractive();
@@ -78,10 +78,17 @@ class Play extends Phaser.Scene {
             player.setCollideWorldBounds(true);
             playerArray.push(player);
             this.setupFollowupCameraOn(player);
-            console.log(playerArray);
+            player.health = 100;
+            playerHealth = 0;
+            let barBackground = this.add.graphics().fillStyle(0x24F00D).fillRect(25, 25, 100, 25).setScrollFactor(0)
+            bar = this.add.graphics().fillStyle(0x24F00D).fillRect(25, 25, 100, 25).setScrollFactor(0)
+            // console.log(player.health)
+            // console.log(playerArray);
             this.enemyGroup = this.physics.add.group();
             const enemy = this.createManySprites(this, 100, Skeleton);
-            this.physics.add.collider(player, this.enemyGroup, this.takesHit);
+            this.physics.add.collider(player, this.enemyGroup, this.takesHit, () => newBar = this.add.graphics().fillStyle(0xF83400).fillRect(125, 25, playerHealth, 25)
+                .setScrollFactor(0))
+            // .setScaleX(((playerHealth / 100 * 100)))
         });
 
         // Properties Init
@@ -142,7 +149,7 @@ class Play extends Phaser.Scene {
     getPlayer() {
         for (var i = 0; i < playerArray.length; i++) {
             if (playerArray[i].body.velocity.x < 0) {
-                console.log('running left')
+                // console.log('running left')
             }
         }
     }
@@ -153,16 +160,6 @@ class Play extends Phaser.Scene {
                 enemyArray[i].setFlipX(true)
             } else if (enemyArray[i].body.velocity.x > 0)
                 enemyArray[i].setFlipX(false)
-
-        }
-    }
-
-    checkHowClose() {
-        for (var i = 0; i < enemyArray.length; i++) {
-            if (enemyArray[i].body.velocity.x < 0) {
-                enemyArray[i].setFlipX(false)
-            } else if (enemyArray[i].body.velocity.x > 0)
-                enemyArray[i].setFlipX(true)
 
         }
     }
@@ -198,8 +195,8 @@ class Play extends Phaser.Scene {
         for (var i = 0; i < enemyArray.length; i++) {
             for (var j = 0; j < playerArray.length; j++) {
                 if ((Math.abs(enemyArray[i].body.x - playerArray[j].body.x) < 45) && (Math.abs(enemyArray[i].body.y - playerArray[j].body.y) < 50)) {
-                    health -= 1
-                    console.log(health)
+                    // health -= 1
+                    // console.log(health)
                 }
             }
         }
@@ -208,58 +205,26 @@ class Play extends Phaser.Scene {
     takesHit() {
         // if (this.hasBeenHit) { return };
         this.hasBeenHit = true;
-        console.log('hit')
-    }
+        // console.log('hit')
+        if (playerHealth > -100)
+            playerHealth -= 1;
+        console.log(playerHealth)
 
-    makeBar(x, y, color, length) {
+        bar.setVisible(false)
 
-        let bar = this.add.graphics();
-        bar.fillStyle(color);
-        bar.fillRect(0, 0, length, 25);
-        bar.x = x;
-        bar.y = y;
-
-        bar.scaleX = 1
-        return bar;
-    }
-
-    setValue(bar, percentage) {
-
-        bar.scaleX = percentage / (100);
-        console.log(percentage)
-    }
-
-    gameOver() {
-        const message = JSON.stringify({
-            message: currentScore
-        });
-        window.parent.postMessage(message, '*')
-    }
-
-    formatTime(seconds) {
-        // Minutes
-        var minutes = Math.floor(seconds / 60);
-        // Seconds
-        var partInSeconds = seconds % 60;
-        // Adds left zeros to seconds
-        partInSeconds = partInSeconds.toString().padStart(2, '0');
-        // Returns formated time
-        return `${minutes}:${partInSeconds}`;
-    }
-
-    onEvent() {
-        this.initialTime -= 1; // One second
-        text.setText('Countdown: ' + formatTime(this.initialTime));
-    }
-
-    startGame() {
-        // enemyGroup = this.physics.add.group()
-        // const enemy = this.createManySprites(this, 100, Skeleton)
-        // const player = this.createPlayer();
-        // player.setCollideWorldBounds(true);
-        // playerArray.push(player)
+        if (playerHealth === -100) {
+            let message = JSON.stringify({
+                message: currentScore
+            });
+            window.parent.postMessage(message, '*')
+            console.log(currentScore)
+        }
     }
 }
+
+
+
+
 
 
 export default Play;

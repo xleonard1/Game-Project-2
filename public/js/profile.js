@@ -3,7 +3,7 @@ const newFormHandler = async (event) => {
   if (name) {
     const response = await fetch(`/api/games`, {
       method: 'POST',
-      body: JSON.stringify({ username, name, avatar}),
+      body: JSON.stringify({ username, name, avatar, points}),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -17,23 +17,44 @@ const newFormHandler = async (event) => {
   }
 };
 
-const renderScore = async () => {
-   const iframe = document.querySelector('#iframeID')
+const iframe = document.querySelector('#iframeID')
+let message = 'message'
+const receiveScore = async () => {
    if(iframe) {
-     const response = await fetch('api/games', {
-       method: 'POST',
-       body: JSON.stringify({points}),
-       headers: {
-         'Content-Type': 'application/json',
-       }
-     });
+    window.addEventListener(message, function (e) {
+      data = e.data;
+      console.log(data)
+      points = data
+    })
+  }
+}
 
-     if(response.ok) {
-       document.location.replace('/profile')
-     } else {
-       alert('failed to render score')
-     }
-   }
+// const iframeData = async () => {
+//    const response = await fetch('/Ninja-Party/build')
+
+//    console.log
+
+
+// }
+
+const getData = async () => {
+  const response = await fetch('/Ninja-Party/build')
+
+  console.log(response)
+
+  console.log('hell yeah')
+    // method: 'POST',
+    // body: {message},
+    // headers: {
+    //   'Content-Type': 'application/json',
+    //}
+  //});
+
+  // if(response.ok) {
+  //   document.location.replace('/profile')
+  // } else {
+  //   alert('failed to render score')
+  // }
 }
 
 const delButtonHandler = async (event) => {
@@ -52,7 +73,7 @@ const delButtonHandler = async (event) => {
   }
 };
 
-renderScore()
+receiveScore()
 
 document
 .querySelector('.startGame-btn')

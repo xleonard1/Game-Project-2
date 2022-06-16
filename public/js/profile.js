@@ -8,78 +8,39 @@ window.addEventListener('message', async function (e) {
   points = e.data;
 })
 
-const newFormHandler = async () => {
-  const name = document.querySelector('.real-name').value.trim();
+// const newFormHandler = async () => {
+//   const name = document.querySelector('.real-name').value.trim();
 
    
-    if (name) {
-      const response = await fetch(`/api/games`, {
-        method: 'POST',
-        body: JSON.stringify({ username, name, avatar}),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+//     if (name) {
+//       const response = await fetch(`/api/games`, {
+//         method: 'POST',
+//         body: JSON.stringify({ username, name, avatar}),
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       });
   
-      if (response.ok) {
-        document.location.replace('/profile')
-      } else {
-        alert('Failed to create project');
-      }
-    }
-    
- 
-};
+//       if (response.ok) {
+//         document.location.replace('/profile')
+//       } else {
+//         alert('Failed to create project');
+//       }
+//     }
+// };
 
-
-const getScore = async () => {
-  const response= await fetch('/Ninja-Party/build')
-  console.log(response);
-  const data= await response.json();
-  console.log(data);
-}
-
-getScore()
    
-     
+  
 
-
-// if(iframe) {
-//     window.addEventListener('message', function (e) {
+if(iframe) {
+    window.addEventListener('message', function (e) {
     
-//       data = e.data;
-//       console.log(data)
-//       return data.json
-//       })
-// }
-
-// const iframeData = async () => {
-//    
-
-//    console.log
-
-
-// }
-
-const getData = async () => {
-  const response = await fetch('/Ninja-Party/build')
-
-  console.log(response);
-
-  console.log('hell yeah')
-    // method: 'POST',
-    // body: {message},
-    // headers: {
-    //   'Content-Type': 'application/json',
-    //}
-  //});
-
-  // if(response.ok) {
-  //   document.location.replace('/profile')
-  // } else {
-  //   alert('failed to render score')
-  // }
+      data = e.data;
+      console.log(data)
+      return data.json
+      })
 }
+
 
 const delButtonHandler = async (event) => {
   if (event.target.hasAttribute('data-id')) {

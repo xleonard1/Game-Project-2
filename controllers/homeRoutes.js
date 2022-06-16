@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Game } = require('../models');
+const { User, Game, Update } = require('../models');
 const withAuth = require('../utils/auth');
 
 // router to get to the homepage
@@ -7,30 +7,6 @@ router.get('/', async (req, res) => {
   res.render('homepage', {title:router});
 
 });
-
-router.get('/profile/:id', async (req, res) => {
-try {
-const gameData = await Game.findByPk(req.params.id, {
-  include: [
-    {
-      model: User,
-      attributes: ['name'],
-    },
-  ],
-});
-
-const game = gameData.get({ plain: true });
-
-res.render('profile', {
-  ...game,
-  logged_in: req.session.logged_in
-});
-} catch (err) {
-res.status(500).json(err);
-}
-});
-
-
 
 
 // Use withAuth middleware to prevent access to route
@@ -62,5 +38,28 @@ if (req.session.logged_in) {
 
 res.render('login');
 });
+
+
+router.get('/settings', withAuth, async (req, res) => {
+  try {
+    // Find the logged in user based on the session ID
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      include: [{model:Game}]
+    });
+  
+    const user = userData.get({ plain: true });
+  
+    res.render('settings', {
+      ...user,
+      logged_in: true
+    });
+   } catch (err) {
+    res.status(500).json(err);
+   }
+  });
+
+
+  
 
 module.exports = router;

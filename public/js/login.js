@@ -46,6 +46,8 @@ const signupFormHandler = async (event) => {
     }
   }
 };
+
+
 // widget code
 
 const cloudName = "dcldpb9uf"; // replace with your own cloud name
@@ -91,6 +93,7 @@ document.getElementById("upload_widget").addEventListener(
   },
   false
 );
+
 
 
 

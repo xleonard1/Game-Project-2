@@ -138,9 +138,10 @@ class Play extends Phaser.Scene {
 
         for (var i = 0; i < count; i++) {
 
-            var enemy = this.physics.add.existing(new layer(this, Phaser.Math.Between(1000, this.game.config.width + 10000), .5)).setScale(2);;
+            var enemy = this.physics.add.existing(new layer(this, Phaser.Math.Between(1000, this.game.config.width + 10000), 8300)).setScale(2);;
             this.enemyGroup.add(enemy)
             enemy.setVelocityX(-(Math.random() * 100) + 40)
+            enemy.body.setGravityY(5000);
             enemyArray.push(enemy)
             const ev = enemy.body.velocity.x
             enemy.setCollideWorldBounds(true)
@@ -149,7 +150,6 @@ class Play extends Phaser.Scene {
         }
 
     }
-
 
     checkDirection() {
 
@@ -187,7 +187,7 @@ class Play extends Phaser.Scene {
             if (!enemyArray[i].body) { return }
             for (var j = 0; j < playerArray.length; j++) {
                 if ((Math.abs(enemyArray[i].body.x - playerArray[j].body.x) < 108) && (Math.abs(enemyArray[i].body.y - playerArray[j].body.y) < 50) && cursors.space.isDown) {
-                    enemyArray[i].setCollideWorldBounds(false).setVisible(false)
+                    enemyArray[i].setCollideWorldBounds(false)
                     gameState.scoreText.setText('Score: ' + (currentScore += 5))
                     console.log(currentScore)
 

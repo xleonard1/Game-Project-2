@@ -41,6 +41,7 @@ class Skeleton extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
+        if (this.hasBeenHit || !this.body) { return }
 
         const onFloor = this.body.onFloor();
 

@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import initAnimations from './playerAnims';
-import HealthBar from '../display/HealthBar';
+
 
 
 class Player extends Phaser.Physics.Arcade.Sprite {
@@ -62,6 +62,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     //60 cycles/sec
     update() {
         //Get keyboard input for use in update function
+        if (this.hasBeenHit || !this.body) { return }
         const { left, right, space, up } = this.cursors;
         const isUpJustDown = Phaser.Input.Keyboard.JustDown(up);
         const isSpaceJustDown = Phaser.Input.Keyboard.JustDown(space);

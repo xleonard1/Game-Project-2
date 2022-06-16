@@ -33,7 +33,6 @@ const createParallax = (scene, count, layer, scrollFactor) => {
 
 }
 
-
 class Play extends Phaser.Scene {
 
     constructor(config) {
@@ -184,6 +183,7 @@ class Play extends Phaser.Scene {
                 if ((Math.abs(enemyArray[i].body.x - playerArray[j].body.x) < 108) && (Math.abs(enemyArray[i].body.y - playerArray[j].body.y) < 50) && cursors.space.isDown) {
                     enemyArray[i].setCollideWorldBounds(false).setVisible(false)
                     gameState.scoreText.setText('Score: ' + (currentScore += 5))
+                    console.log(currentScore)
 
                 }
             }
@@ -207,17 +207,19 @@ class Play extends Phaser.Scene {
         // console.log('hit')
         if (playerHealth > -200)
             playerHealth -= 1;
-        console.log(playerHealth)
+        // console.log(playerHealth)
 
         bar.setVisible(false)
 
         if (playerHealth === -200) {
-            EventEmitter.emit('GAME_OVER')
             let message = JSON.stringify({
                 message: currentScore
             });
             window.parent.postMessage(message, '*')
             console.log(currentScore)
+            EventEmitter.emit('GAME_OVER')
+
+
             return;
         }
     }

@@ -13,8 +13,9 @@ router.get('/Ninja-Party/build', async (req, res) => {
     })
     res.sendFile(path.join(__dirname, '/Ninja-Party/build'));
     res.status(200).json(newGame)
-   
-  
+  }catch (err) {
+    res.status(500).json(err)
+  }
 }); 
 
 router.post('/Ninja-Part/build', withAuth, async (req, res) => {

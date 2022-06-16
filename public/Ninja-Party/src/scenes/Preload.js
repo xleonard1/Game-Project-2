@@ -11,6 +11,10 @@ class Preload extends Phaser.Scene {
 
     preload() {
 
+        //Load music and soundFX
+        this.load.audio('theme', 'assets/Sounds/theme.wav')
+        this.load.audio('jump', 'assets/Sounds/jump.wav')
+        this.load.audio('sword', 'assets/Sounds/sword.wav')
 
         //Initial load of ninja1
         this.load.image('ninja1', 'assets/Ninjas/ninja 1_idle_0.png')

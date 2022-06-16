@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import initAnimations from './playerAnims';
-import HealthBar from '../display/HealthBar';
+
 
 
 class Player extends Phaser.Physics.Arcade.Sprite {
@@ -36,12 +36,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.setOffset(26, 34)
         //Set default health 100 for new game
         this.health = 100
-        //Call new new Health bar from HealthBar.js
-        // this.hp = new HealthBar(
-        //     this.scene,
-        //     15, 20,
-        //     this.health
-        // )
+        //Init player sounds
+        this.jumpSound = this.scene.sound.add('jump', { loop: false, volume: 0.4 })
+        this.swordSound = this.scene.sound.add('sword', { loop: false, volume: 0.2 })
 
         //While in Arcade super class .scene must be used since input is used in a scene context
         this.cursors = this.scene.input.keyboard.createCursorKeys();
@@ -62,6 +59,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     //60 cycles/sec
     update() {
         //Get keyboard input for use in update function
+        if (this.hasBeenHit || !this.body) { return }
         const { left, right, space, up } = this.cursors;
         const isUpJustDown = Phaser.Input.Keyboard.JustDown(up);
         const isSpaceJustDown = Phaser.Input.Keyboard.JustDown(space);
@@ -80,6 +78,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         if (isUpJustDown && (onFloor || this.jumpCount < this.consecutiveJumps)) {
+            this.jumpSound.play()
             this.setVelocityY(-this.playerSpeed * 2.5);
             this.jumpCount++;
         }
@@ -90,7 +89,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         isSpaceJustDown ?
-            this.play('ninja1_sword', true) && console.log('sword') :
+            this.play('ninja1_sword', true) && this.swordSound.play() :
             onFloor ?
                 this.body.velocity.x !== 0 ?
                     this.play('ninja1_run', true) : this.play('ninja1_idle', true) : this.play('ninja1_jump', true)

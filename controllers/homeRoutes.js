@@ -5,7 +5,6 @@ const withAuth = require('../utils/auth');
 // router to get to the homepage
 router.get('/', async (req, res) => {
   res.render('homepage', {title:router});
-
 });
 
 
@@ -29,6 +28,8 @@ try {
 }
 });
 
+
+
 router.get('/login', (req, res) => {
 // If the user is already logged in, redirect the request to another route
 if (req.session.logged_in) {
@@ -45,7 +46,7 @@ router.get('/settings', withAuth, async (req, res) => {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{model:Game}]
+      include: [{ model: Game }]
     });
   
     const user = userData.get({ plain: true });

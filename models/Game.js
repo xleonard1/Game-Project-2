@@ -12,10 +12,6 @@ Game.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     points: {
       type: DataTypes.INTEGER,
       allowNull: true,

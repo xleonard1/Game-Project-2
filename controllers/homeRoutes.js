@@ -40,6 +40,23 @@ if (req.session.logged_in) {
 res.render('login');
 });
 
+router.get('/leaderboard', async (req,res) => {
+  try {
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Game }]
+    });
+    const leader = userData.get({ plain: true });
+
+    res.render('leaderboard', {
+      ...leader,
+      logged_in: true
+    })
+  } catch (err) {
+    res.status(500).json(err)
+
+  }
+})
 
 router.get('/settings', withAuth, async (req, res) => {
   try {

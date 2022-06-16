@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
 
 });
 
-router.get('/Ninja-Party/build/:id', async (req, res) => {
+router.get('/profile/:id', async (req, res) => {
 try {
 const gameData = await Game.findByPk(req.params.id, {
   include: [

@@ -20,6 +20,7 @@ var newBar
 var timedEvent
 var button
 var message
+var music
 
 const createParallax = (scene, count, layer, scrollFactor) => {
     let x = 0
@@ -48,6 +49,10 @@ class Play extends Phaser.Scene {
         //Get input from cursors
         cursors = this.input.keyboard.createCursorKeys();
         this.physics.world.setBounds(0, 0, this.width, 745)
+
+
+
+
 
         const width = this.scale.width
         const height = this.scale.height
@@ -95,6 +100,7 @@ class Play extends Phaser.Scene {
         button.on('pointerdown', () => {
             gameState.scoreText = this.add.text(23, 60, 'Score: 0', { fontSize: '25px', fill: '#000000' })
             gameState.scoreText.setScrollFactor(0);
+            music = this.playMusic();
             button.destroy(true)
 
             this.cameras.main.setBounds(0, 0, width * 1000, height);
@@ -217,6 +223,7 @@ class Play extends Phaser.Scene {
             });
             window.parent.postMessage(message, '*')
             console.log(currentScore)
+
             EventEmitter.emit('GAME_OVER')
 
 
@@ -228,6 +235,13 @@ class Play extends Phaser.Scene {
         EventEmitter.on('GAME_OVER', () => {
             this.scene.restart();
         })
+    }
+
+    playMusic() {
+        if (playerHealth === -200) {
+            this.sound.add('theme', { loop: true, volume: 0.5 }).stop()
+        } else this.sound.add('theme', { loop: true, volume: 0.5 }).play()
+
     }
 
 

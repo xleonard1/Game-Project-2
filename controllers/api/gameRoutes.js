@@ -6,6 +6,7 @@ const withAuth = require('../../utils/auth');
 
 router.get('/Ninja-Party/build', async (req, res) => {
   try {
+    console.log('hell nah')
     const newGame = await Game.findAll({
       ...req.body,
       user_id: req.session.user_id

@@ -218,6 +218,8 @@ class Play extends Phaser.Scene {
             window.parent.postMessage(message, '*')
             console.log(currentScore)
             EventEmitter.emit('GAME_OVER')
+
+
             return;
         }
     }

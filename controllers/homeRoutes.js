@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Game, Update } = require('../models');
+const { User, Game} = require('../models');
 const withAuth = require('../utils/auth');
 
 // router to get to the homepage

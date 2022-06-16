@@ -19,7 +19,7 @@ class Skeleton extends Phaser.Physics.Arcade.Sprite {
 
     }
     init() {
-        this.gravity = 500;
+        this.gravity = 1000;
         this.speed = 250;
 
         this.setSize(this.width - 120, this.height - 99)

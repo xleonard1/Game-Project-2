@@ -1,8 +1,9 @@
 const sequelize = require('../config/connection');
-const { User, Game } = require('../models');
+const { User, Game, Update} = require('../models');
 
 const userData = require('./userData.json');
 const userStats = require('./Userstats.json')
+
 
 
 const seedDatabase = async () => {
@@ -17,7 +18,6 @@ const seedDatabase = async () => {
     individualHooks: true,
     returning: true,
   });
-
 
   process.exit(0);
 };

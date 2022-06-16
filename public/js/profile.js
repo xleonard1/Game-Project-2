@@ -1,61 +1,46 @@
-const newFormHandler = async (event) => {
-  const name = document.querySelector('.real-name').value.trim();
-  if (name) {
-    const response = await fetch(`/api/games`, {
-      method: 'POST',
-      body: JSON.stringify({ username, name, avatar, points}),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
 
-    if (response.ok) {
-      document.location.replace('/profile');
-    } else {
-      alert('Failed to create project');
-    }
-  }
-};
+
+
 
 const iframe = document.querySelector('#iframeID')
-let message = 'message'
-const receiveScore = async () => {
-   if(iframe) {
-    window.addEventListener(message, function (e) {
+
+window.addEventListener('message', async function (e) {
+  points = e.data;
+})
+
+// const newFormHandler = async () => {
+//   const name = document.querySelector('.real-name').value.trim();
+
+   
+//     if (name) {
+//       const response = await fetch(`/api/games`, {
+//         method: 'POST',
+//         body: JSON.stringify({ username, name, avatar}),
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       });
+  
+//       if (response.ok) {
+//         document.location.replace('/profile')
+//       } else {
+//         alert('Failed to create project');
+//       }
+//     }
+// };
+
+   
+  
+
+if(iframe) {
+    window.addEventListener('message', function (e) {
+    
       data = e.data;
       console.log(data)
-      points = data
-    })
-  }
+      return data.json
+      })
 }
 
-// const iframeData = async () => {
-//    const response = await fetch('/Ninja-Party/build')
-
-//    console.log
-
-
-// }
-
-const getData = async () => {
-  const response = await fetch('/Ninja-Party/build')
-
-  console.log(response)
-
-  console.log('hell yeah')
-    // method: 'POST',
-    // body: {message},
-    // headers: {
-    //   'Content-Type': 'application/json',
-    //}
-  //});
-
-  // if(response.ok) {
-  //   document.location.replace('/profile')
-  // } else {
-  //   alert('failed to render score')
-  // }
-}
 
 const delButtonHandler = async (event) => {
   if (event.target.hasAttribute('data-id')) {
@@ -73,7 +58,6 @@ const delButtonHandler = async (event) => {
   }
 };
 
-receiveScore()
 
 document
 .querySelector('.startGame-btn')

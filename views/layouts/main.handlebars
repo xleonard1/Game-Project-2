@@ -47,6 +47,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="/avatars/">Leader Board</a>
               </li>
+              <li class="nav-item">
+               <a class = "nav-link" href="/settings/">settings</a> 
+               </li>
               {{else}}
               <li class ="nav-item">
               <a class = 'nav-link'href="/login">login</a>
@@ -104,6 +107,7 @@
   {{!-- </div> --}}
 
   <!-- Render script for logged in users only -->
+ 
   {{#if logged_in}}
   <script src="/js/logout.js"></script>
   {{/if}}

@@ -16,7 +16,7 @@ Game.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    message: {
+    points: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },

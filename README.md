@@ -1,4 +1,8 @@
 # Game-Project-2
+
+
+## Description
+```
 User Story:
 
 As a desktop gamer, I want a 2D game website so that I can interact with a single avatar on an obstacle course. 
@@ -30,3 +34,43 @@ My score is logged to the database
 
 When I reach a specified highscore 
 Then I can make special upgrades to the avatar
+```
+
+## Table of Contents
+
+
+
+1. [Installation](#Installation)
+2. [How to Use](#HowTo)
+3. [Contributors](#Contributors)
+4. [Demo](#Demo)
+
+
+## Installation
+## How to Use
+## Contributors
+
+
+
+## Installation
+There are no Installation requirements for the user. 
+
+## How to use the Project
+
+The user should first log in, then the user should click start on their page, then the user should enjoy the game. 
+
+## Contributors
+
+Xavier D. Leonard Jr.(me)
+Ian Ferris
+
+## Demo
+
+![The Screenshot](public/game.png)
+
+## Links
+
+https://drive.google.com/file/d/16pOSJ9hBe5BroXX42niiTAFmD2J9bMC7/view
+
+https://github.com/xleonard1/E-Commerce-Back-End.git
+

@@ -7,20 +7,20 @@ console.log(button)
 const profileFormHandler = async (event) => {
     event.preventDefault();
     console.log('i heard you')
-  
-    const name = document.querySelector('#account-fn').value.trim();
-    const email = document.querySelector('#account-email').value.trim();
+    const userId = event.target.getAttribute('data-id')
+  console.log(userId)
+    const username = document.querySelector('#account-fn').value.trim();
     const password = document.querySelector('#account-pass').value.trim();
   
-    if (name && email && password && password) {
-      const response = await fetch('/api/users', {
+    if (username && password) {
+      const response = await fetch('/api/users/profile', {
         method: 'PUT',
-        body: JSON.stringify({ name,email,password, avatar}),
+        body: JSON.stringify({ userId, username,avatar,password}),
         headers: { 'Content-Type': 'application.json' },
       });
   
       if (response.ok) {
-        document.location.replace('/profile');
+        // document.location.replace('/profile');
       } else {
         alert(response.statusText);
       }

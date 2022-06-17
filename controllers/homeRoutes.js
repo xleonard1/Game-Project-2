@@ -70,7 +70,8 @@ router.get('/settings', withAuth, async (req, res) => {
   
     res.render('settings', {
       ...user,
-      logged_in: true
+      logged_in: true,
+      user_id: req.session.user_id
     });
    } catch (err) {
     res.status(500).json(err);

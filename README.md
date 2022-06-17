@@ -46,10 +46,6 @@ Then I can make special upgrades to the avatar
 4. [Demo](#Demo)
 
 
-## Installation
-## How to Use
-## Contributors
-
 
 
 ## Installation
@@ -72,5 +68,5 @@ Ian Ferris
 
 https://drive.google.com/file/d/16pOSJ9hBe5BroXX42niiTAFmD2J9bMC7/view
 
-https://github.com/xleonard1/E-Commerce-Back-End.git
+https://nameless-journey-91177.herokuapp.com/
 
